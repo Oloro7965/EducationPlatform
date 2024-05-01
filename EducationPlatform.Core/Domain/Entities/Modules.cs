@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace EducationPlatform.Core.Domain.Entities
 {
-    public class Module:BaseEntity
+    public class Modules:BaseEntity
     {
         public string Name { get; private set; }
         public string Description { get; private set; }
         public DateTime CreatedDate { get; private set;}
-        public Module() { }
-        public Module(string name, string description)
+        public Modules() { }
+        public Modules(string name, string description)
         {
             Name = name;
             Description = description;

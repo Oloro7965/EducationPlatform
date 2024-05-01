@@ -20,29 +20,14 @@ namespace EducationPlatform.application.Services.Implementations
         {
             _dbcontext = dbcontext;
         }
-        public Guid Create(NewUserInputModel Model)
-        {
-            var user = new User(Model.FullName,Model.Email,Model.Password,Model.BirthDate,Model.Document,Model.PhoneNumber,Model.Role);
-            _dbcontext.Users.Add(user);
-            _dbcontext.SaveChanges();
-            return user.Id;
-        }
-
-        public void Delete(Guid id)
-        {
-            var user = _dbcontext.Users.FirstOrDefault(x => x.Id == id);
-            user.Delete();
-            _dbcontext.SaveChanges();
-        }
-
-        public List<UserViewModel> Get(string query)
-        {
-            var users = _dbcontext.Users.Where(u => u.IsActive.Equals(true));
-            var usersViewModel = users.Select(b => new UserViewModel(b.FullName
-                ,b.Email,b.BirthDate,b.PhoneNumber))
-                .ToList();
-            return usersViewModel;
-        }
+        //public List<UserViewModel> Get(string query)
+        //{
+        //    var users = _dbcontext.Users.Where(u => u.IsActive.Equals(true));
+        //    var usersViewModel = users.Select(b => new UserViewModel(b.FullName
+        //        ,b.Email,b.BirthDate,b.PhoneNumber))
+        //        .ToList();
+        //    return usersViewModel;
+        //}
 
         public UserViewModel GetById(Guid id)
         {
@@ -51,11 +36,11 @@ namespace EducationPlatform.application.Services.Implementations
             return UserDetailViewModel;
         }
 
-        public void Update(UserUpdateInputModel model)
-        {
-            var user= _dbcontext.Users.FirstOrDefault(user=>user.Id==model.Id);
-            user.Update(model.Email, model.PhoneNumber);
-            _dbcontext.SaveChanges();
-        }
+        //public void Update(UserUpdateInputModel model)
+        //{
+        //    var user= _dbcontext.Users.FirstOrDefault(user=>user.Id==model.Id);
+        //    user.Update(model.Email, model.PhoneNumber);
+        //    _dbcontext.SaveChanges();
+        //}
     }
 }

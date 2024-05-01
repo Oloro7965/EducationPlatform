@@ -10,10 +10,8 @@ namespace EducationPlatform.application.Services.Interfaces
 {
     public interface IUserService
     {
-        List<UserViewModel> Get(string query);
+        //List<UserViewModel> Get(string query);
         UserViewModel GetById(Guid id);
-        void Update(UserUpdateInputModel model);
-        Guid Create(NewUserInputModel UserInputModel);
-        void Delete(Guid id);
+        //void Update(UserUpdateInputModel model);
     }
 }

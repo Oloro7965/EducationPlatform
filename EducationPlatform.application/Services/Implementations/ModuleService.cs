@@ -23,7 +23,7 @@ namespace EducationPlatform.application.Services.Implementations
 
         public Guid Create(NewModuleInputModel Model)
         {
-            var module = new Module(Model.Name, Model.Description);
+            var module = new Modules(Model.Name, Model.Description);
             _dbcontext.Modules.Add(module);
             _dbcontext.SaveChanges();
             return module.Id;

@@ -1,8 +1,10 @@
 
+using EducationPlatform.application.Commands.CreateUserCommand;
 using EducationPlatform.application.Services.Implementations;
 using EducationPlatform.application.Services.Interfaces;
 using EducationPlatform.Infraestructure.Persistance;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +21,7 @@ builder.Services.AddScoped<ISignatureService,SignatureService>();
 builder.Services.AddScoped<IModuleService,ModuleService>();
 builder.Services.AddScoped<ICourseService,CourseService>();
 builder.Services.AddScoped<IClassService,ClassService>();
+builder.Services.AddMediatR(opt => opt.RegisterServicesFromAssemblyContaining(typeof(CreateUserCommand)));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
