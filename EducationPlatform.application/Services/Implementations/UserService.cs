@@ -24,7 +24,7 @@ namespace EducationPlatform.application.Services.Implementations
         {
             var user = new User(Model.FullName,Model.Email,Model.Password,Model.BirthDate,Model.Document,Model.PhoneNumber,Model.Role);
             _dbcontext.Users.Add(user);
-            //_dbcontext.SaveChanges();
+            _dbcontext.SaveChanges();
             return user.Id;
         }
 
@@ -32,7 +32,7 @@ namespace EducationPlatform.application.Services.Implementations
         {
             var user = _dbcontext.Users.FirstOrDefault(x => x.Id == id);
             user.Delete();
-            //_dbcontext.SaveChanges();
+            _dbcontext.SaveChanges();
         }
 
         public List<UserViewModel> Get(string query)
@@ -55,7 +55,7 @@ namespace EducationPlatform.application.Services.Implementations
         {
             var user= _dbcontext.Users.FirstOrDefault(user=>user.Id==model.Id);
             user.Update(model.Email, model.PhoneNumber);
-            //_dbcontext.SaveChanges();
+            _dbcontext.SaveChanges();
         }
     }
 }

@@ -13,6 +13,13 @@ namespace EducationPlatform.Core.Domain.Entities
         public int Duration { get; private set; }
 
         public Class() { }
-        
+
+        public Class(string name, string description, string videoLink, int duration)
+        {
+            Name = name;
+            Description = description;
+            VideoLink = videoLink;
+            Duration = duration;
+        }
     }
 }

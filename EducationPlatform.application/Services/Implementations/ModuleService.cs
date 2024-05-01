@@ -25,7 +25,7 @@ namespace EducationPlatform.application.Services.Implementations
         {
             var module = new Module(Model.Name, Model.Description);
             _dbcontext.Modules.Add(module);
-            //_dbcontext.SaveChanges();
+            _dbcontext.SaveChanges();
             return module.Id;
         }
 
@@ -49,7 +49,7 @@ namespace EducationPlatform.application.Services.Implementations
         {
             var Module=_dbcontext.Modules.FirstOrDefault(m=>m.Id == model.Id);
             Module.Update(model.Description);
-            //_dbcontext.SaveChanges();
+            _dbcontext.SaveChanges();
         }
     }
 }

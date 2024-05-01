@@ -23,9 +23,9 @@ namespace EducationPlatform.application.Services.Implementations
 
         public Guid Create(NewSignatureInputModel Model)
         {
-            var signature = new Signature(Model.Name, Model.Duration,Model.Courses);
+            var signature = new Signature(Model.Name, Model.Duration);
             _dbcontext.Signatures.Add(signature);
-            //_dbcontext.SaveChanges();
+            _dbcontext.SaveChanges();
             return signature.Id;
         }
 

@@ -9,12 +9,6 @@ namespace EducationPlatform.application.InputModel
 {
     public class SignatureUpdateInputModel
     {
-        public SignatureUpdateInputModel(string nome, int duration, List<Course> courses)
-        {
-            Nome = nome;
-            Duration = duration;
-            Courses = courses;
-        }
         public string Nome { get; private set; }
         public int Duration { get; private set; }
         public List<Course> Courses { get; private set; }

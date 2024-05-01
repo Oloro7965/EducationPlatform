@@ -34,7 +34,7 @@ namespace EducationPlatform.API.Controllers
             return CreatedAtAction(nameof(GetById), new {id=userId},model);
         }
         [HttpPut("{id}")]
-        public IActionResult Put(Guid id,[FromBody] UserUpdateInputModel model) {
+        public IActionResult Put(Guid id, [FromBody] UserUpdateInputModel model) {
             _userService.Update(model);
             return Ok(model);
         }
@@ -44,6 +44,5 @@ namespace EducationPlatform.API.Controllers
             _userService.Delete(id);
             return Ok();
         }
-        
     }
 }

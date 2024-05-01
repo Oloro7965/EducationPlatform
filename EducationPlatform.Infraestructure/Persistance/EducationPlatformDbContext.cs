@@ -17,6 +17,7 @@ namespace EducationPlatform.Infraestructure.Persistance
         public DbSet<Course> Courses { get; set; }
         public EducationPlatformDbContext()
         {
+
         }
         public EducationPlatformDbContext(DbContextOptions<EducationPlatformDbContext> options) : base(options)
         {
