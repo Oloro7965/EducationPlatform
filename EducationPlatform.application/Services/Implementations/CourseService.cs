@@ -20,29 +20,29 @@ namespace EducationPlatform.application.Services.Implementations
             _dbcontext = dbcontext;
         }
 
-        public Guid Create(NewCourseInputModel Model)
-        {
-            var course = new Course(Model.Name, Model.Description, Model.Cover);
-            _dbcontext.Courses.Add(course);
-            _dbcontext.SaveChanges();
-            return course.Id;
-        }
+        //public Guid Create(NewCourseInputModel Model)
+        //{
+        //    var course = new Course(Model.Name, Model.Description, Model.Cover);
+        //    _dbcontext.Courses.Add(course);
+        //    _dbcontext.SaveChanges();
+        //    return course.Id;
+        //}
 
-        public List<CourseViewModel> Get()
-        {
-            var courses = _dbcontext.Courses;
-            var CoursesViewModel = courses.Select(b => new CourseViewModel(b.Name,
-                b.Description, b.Cover))
-                .ToList();
-            return CoursesViewModel;
-        }
+        //public List<CourseViewModel> Get()
+        //{
+        //    var courses = _dbcontext.Courses;
+        //    var CoursesViewModel = courses.Select(b => new CourseViewModel(b.Name,
+        //        b.Description, b.Cover))
+        //        .ToList();
+        //    return CoursesViewModel;
+        // }
 
-        public CourseViewModel GetById(Guid id)
-        {
-            var course = _dbcontext.Courses.FirstOrDefault(m => m.Id == id);
-            var CourseDetailViewModel = new CourseViewModel(course.Name, course.Description, course.Cover);
-            return CourseDetailViewModel;
-        }
+        //public CourseViewModel GetById(Guid id)
+        //{
+        //var course = _dbcontext.Courses.FirstOrDefault(m => m.Id == id);
+        //var CourseDetailViewModel = new CourseViewModel(course.Name, course.Description, course.Cover);
+        //return CourseDetailViewModel;
+        //}
 
         public void Update(CourseUpdateInputModel model)
         {

@@ -7,14 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Queries\GetAllSignatures\" />
-    <Folder Include="Queries\GetSignature\" />
-    <Folder Include="Queries\GetAllModules\" />
-    <Folder Include="Queries\GetModule\" />
-    <Folder Include="Queries\GetAllCourses\" />
-    <Folder Include="Queries\GetCourse\" />
-    <Folder Include="Queries\GetAllClasses\" />
-    <Folder Include="Queries\GetClass\" />
     <Folder Include="Validators\" />
   </ItemGroup>
 

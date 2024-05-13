@@ -11,7 +11,7 @@ namespace EducationPlatform.application.Services.Interfaces
     public interface ISignatureService
     {
         List<SignatureViewModel> Get();
-        SignatureViewModel GetById(Guid id);
-        Guid Create(NewSignatureInputModel UserInputModel);
+        //SignatureViewModel GetById(Guid id);
+        //Guid Create(NewSignatureInputModel UserInputModel);
     }
 }

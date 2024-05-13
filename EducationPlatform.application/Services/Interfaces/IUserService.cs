@@ -11,7 +11,7 @@ namespace EducationPlatform.application.Services.Interfaces
     public interface IUserService
     {
         //List<UserViewModel> Get(string query);
-        UserViewModel GetById(Guid id);
+        //UserViewModel GetById(Guid id);
         //void Update(UserUpdateInputModel model);
     }
 }

@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EducationPlatform.application.Queries.GetUser
+namespace EducationPlatform.application.Queries.GetSignature
 {
-    public class GetUserQuery:IRequest<UserViewModel>
+    public class GetSignatureQuery:IRequest<SignatureViewModel>
     {
-        public GetUserQuery(Guid id)
+        public GetSignatureQuery(Guid id)
         {
             Id = id;
         }

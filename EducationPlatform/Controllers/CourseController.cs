@@ -1,5 +1,11 @@
-﻿using EducationPlatform.application.InputModel;
+﻿using EducationPlatform.application.Commands.CreateClassCommand;
+using EducationPlatform.application.Commands.CreateCourseCommand;
+using EducationPlatform.application.Commands.UpdateCourseCommand;
+using EducationPlatform.application.InputModel;
+using EducationPlatform.application.Queries.GetAllCourses;
+using EducationPlatform.application.Queries.GetCourse;
 using EducationPlatform.application.Services.Interfaces;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EducationPlatform.API.Controllers
@@ -9,35 +15,49 @@ namespace EducationPlatform.API.Controllers
     public class CourseController : Controller
     {
         private readonly ICourseService _courseService;
-
-        public CourseController(ICourseService courseService)
+        private readonly IMediator _mediator;
+        public CourseController(ICourseService courseService,IMediator mediator)
         {
             _courseService = courseService;
+            _mediator = mediator;
         }
 
         [HttpGet]
-        public IActionResult Get(string query)
+        public async Task<IActionResult> Get(string query)
         {
-            var users = _courseService.Get();
-            return Ok(users);
+            //var users = _courseService.Get();
+
+            var Query = new GetAllCoursesQuery();
+            var Courses = await _mediator.Send(Query);
+
+            return Ok(Courses);
         }
         [HttpGet("{id}")]
-        public IActionResult GetById(Guid id)
+        public async Task<IActionResult> GetById(Guid id)
         {
-            var user = _courseService.GetById(id);
-            return Ok(user);
+            //var user = _courseService.GetById(id);
+
+            var query = new GetCourseQuery(id);
+            var course=await _mediator.Send(query);
+
+            return Ok(course);
         }
         [HttpPost]
-        public IActionResult Post([FromBody] NewCourseInputModel model)
+        public async Task<IActionResult> Post([FromBody] CreateCourseCommand command)
         {
-            var courseId = _courseService.Create(model);
-            return CreatedAtAction(nameof(GetById), new { id = courseId }, model);
+            //var courseId = _courseService.Create(model);
+            var courseId = await _mediator.Send(command);
+            return CreatedAtAction(nameof(GetById), new { id = courseId }, command);
         }
         [HttpPut("{id}")]
-        public IActionResult Put([FromBody] CourseUpdateInputModel model)
+        public async Task<IActionResult> Put(Guid id,[FromBody] UpdateCourseCommand command)
         {
-            _courseService.Update(model);
-            return Ok(model);
+            //_courseService.Update(model);
+            command.Id = id;
+
+            await _mediator.Send(command);
+
+            return Ok(NoContent);
         }
     }
 }

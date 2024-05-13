@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EducationPlatform.application.Queries.GetUser
+namespace EducationPlatform.application.Queries.GetModule
 {
-    public class GetUserQuery:IRequest<UserViewModel>
+    public class GetModuleQuery:IRequest<ModuleViewModel>
     {
-        public GetUserQuery(Guid id)
+        public GetModuleQuery(Guid id)
         {
             Id = id;
         }

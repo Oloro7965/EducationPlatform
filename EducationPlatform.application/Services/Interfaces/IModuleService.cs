@@ -10,9 +10,9 @@ namespace EducationPlatform.application.Services.Interfaces
 {
     public interface IModuleService
     {
-        List<ModuleViewModel> Get();
-        ModuleViewModel GetById(Guid id);
-        void Update(ModuleUpdateInputModel model);
-        Guid Create(NewModuleInputModel UserInputModel);
+        //List<ModuleViewModel> Get();
+        //ModuleViewModel GetById(Guid id);
+        //void Update(ModuleUpdateInputModel model);
+        //Guid Create(NewModuleInputModel UserInputModel);
     }
 }

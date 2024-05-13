@@ -20,9 +20,11 @@ namespace EducationPlatform.application.Commands.UpdateUserCommand
 
         public async Task<Unit> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
-            var user = _dbcontext.Users.FirstOrDefault(user => user.Id == request.Id);
+            var user = _dbcontext.Users.SingleOrDefault(u => u.Id == request.Id);
             user.Update(request.Email, request.PhoneNumber);
-            await _dbcontext.SaveChangesAsync();
+            //_dbcontext.Update(user);  
+            _dbcontext.SaveChangesAsync();
+
             return Unit.Value;
         }
     }

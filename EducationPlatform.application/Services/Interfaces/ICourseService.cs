@@ -10,9 +10,9 @@ namespace EducationPlatform.application.Services.Interfaces
 {
     public interface ICourseService
     {
-        List<CourseViewModel> Get();
-        CourseViewModel GetById(Guid id);
+        //List<CourseViewModel> Get();
+        //CourseViewModel GetById(Guid id);
         void Update(CourseUpdateInputModel model);
-        Guid Create(NewCourseInputModel Model);
+        //Guid Create(NewCourseInputModel Model);
     }
 }

@@ -1,5 +1,6 @@
 
 using EducationPlatform.application.Commands.CreateUserCommand;
+using EducationPlatform.application.InputModel;
 using EducationPlatform.application.Services.Implementations;
 using EducationPlatform.application.Services.Interfaces;
 using EducationPlatform.Infraestructure.Persistance;
@@ -16,11 +17,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<EducationPlatformDbContext>(options =>
    options.UseInMemoryDatabase("Database"));
-builder.Services.AddScoped<IUserService,UserService>();
-builder.Services.AddScoped<ISignatureService,SignatureService>();
-builder.Services.AddScoped<IModuleService,ModuleService>();
-builder.Services.AddScoped<ICourseService,CourseService>();
-builder.Services.AddScoped<IClassService,ClassService>();
+//builder.Services.AddScoped<IUserService,UserService>();
+//builder.Services.AddScoped<ISignatureService,SignatureService>();
+//builder.Services.AddScoped<IModuleService,ModuleService>();
+//builder.Services.AddScoped<ICourseService,CourseService>();
+//builder.Services.AddScoped<IClassService,ClassService>();
 builder.Services.AddMediatR(opt => opt.RegisterServicesFromAssemblyContaining(typeof(CreateUserCommand)));
 var app = builder.Build();
 

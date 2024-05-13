@@ -10,8 +10,8 @@ namespace EducationPlatform.application.Services.Interfaces
 {
     public interface IClassService
     {
-        List<ClassViewModel> Get();
-        ClassViewModel GetById(Guid id);
-        Guid Create(NewClassInputModel Model);
+        //List<ClassViewModel> Get();
+        //ClassViewModel GetById(Guid id);
+        //Guid Create(NewClassInputModel Model);
     }
 }

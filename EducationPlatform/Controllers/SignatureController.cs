@@ -1,5 +1,9 @@
-﻿using EducationPlatform.application.InputModel;
+﻿using EducationPlatform.application.Commands.CreateSignatureCommand;
+using EducationPlatform.application.InputModel;
+using EducationPlatform.application.Queries.GetAllSignatures;
+using EducationPlatform.application.Queries.GetSignature;
 using EducationPlatform.application.Services.Interfaces;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EducationPlatform.API.Controllers
@@ -9,29 +13,38 @@ namespace EducationPlatform.API.Controllers
     public class SignatureController : Controller
     {
         private readonly ISignatureService _signatureService;
-
-        public SignatureController(ISignatureService signatureService)
+        private readonly IMediator _mediator;
+        public SignatureController(ISignatureService signatureService,IMediator mediator)
         {
             _signatureService = signatureService;
+            _mediator = mediator;
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var users = _signatureService.Get();
-            return Ok(users);
+            var query = new GetAllSignaturesQuery();
+            var signatures=await _mediator.Send(query);
+            return Ok(signatures);
+            //var users = _signatureService.Get();
+            //return Ok(users);
         }
         [HttpGet("{id}")]
-        public IActionResult GetById(Guid id)
+        public async Task<IActionResult> GetById(Guid id)
         {
-            var signature = _signatureService.GetById(id);
+            var Query=new GetSignatureQuery(id);
+            var signature = await _mediator.Send(Query);
             return Ok(signature);
+            //var signature = _signatureService.GetById(id);
+            //return Ok(signature);
         }
         [HttpPost]
-        public IActionResult Post([FromBody] NewSignatureInputModel model)
+        public async Task<IActionResult> Post([FromBody] CreateSignatureCommand command)
         {
-            var signatureId = _signatureService.Create(model);
-            return CreatedAtAction(nameof(GetById), new { id = signatureId }, model);
+            var signatureid=await _mediator.Send(command);
+            return CreatedAtAction(nameof(GetById), new { id = signatureid }, command);
+            //var signatureId = _signatureService.Create(model);
+            //return CreatedAtAction(nameof(GetById), new { id = signatureid }, command);
         }
     }
 }

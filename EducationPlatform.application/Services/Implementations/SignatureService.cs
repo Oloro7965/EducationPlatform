@@ -21,13 +21,13 @@ namespace EducationPlatform.application.Services.Implementations
             _dbcontext = dbcontext;
         }
 
-        public Guid Create(NewSignatureInputModel Model)
-        {
-            var signature = new Signature(Model.Name, Model.Duration);
-            _dbcontext.Signatures.Add(signature);
-            _dbcontext.SaveChanges();
-            return signature.Id;
-        }
+        //public Guid Create(NewSignatureInputModel Model)
+        //{
+        //    var signature = new Signature(Model.Name, Model.Duration);
+        //    _dbcontext.Signatures.Add(signature);
+        //    _dbcontext.SaveChanges();
+        //    return signature.Id;
+        //}
 
         public List<SignatureViewModel> Get()
         {
@@ -38,11 +38,11 @@ namespace EducationPlatform.application.Services.Implementations
             return signaturesViewModel;
         }
 
-        public SignatureViewModel GetById(Guid id)
-        {
-            var signature = _dbcontext.Signatures.FirstOrDefault(b => b.Id == id);
-            var SignatureDetailViewModel = new SignatureViewModel(signature.Name,signature.Duration,signature.Courses);
-            return SignatureDetailViewModel;
-        }
+        //public SignatureViewModel GetById(Guid id)
+        //{
+        //    var signature = _dbcontext.Signatures.FirstOrDefault(b => b.Id == id);
+        //    var SignatureDetailViewModel = new SignatureViewModel(signature.Name,signature.Duration,signature.Courses);
+        //    return SignatureDetailViewModel;
+        //}
     }
 }

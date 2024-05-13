@@ -29,12 +29,12 @@ namespace EducationPlatform.application.Services.Implementations
         //    return usersViewModel;
         //}
 
-        public UserViewModel GetById(Guid id)
-        {
-            var user=_dbcontext.Users.FirstOrDefault(u => u.Id == id);
-            var UserDetailViewModel=new UserViewModel(user.FullName,user.Email,user.BirthDate,user.PhoneNumber);
-            return UserDetailViewModel;
-        }
+        //public UserViewModel GetById(Guid id)
+        //{
+        //    var user=_dbcontext.Users.FirstOrDefault(u => u.Id == id);
+        //    var UserDetailViewModel=new UserViewModel(user.FullName,user.Email,user.BirthDate,user.PhoneNumber);
+        //    return UserDetailViewModel;
+        //}
 
         //public void Update(UserUpdateInputModel model)
         //{
