@@ -12,16 +12,28 @@ namespace EducationPlatform.Infraestructure.Persistance
     public class EducationPlatformDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+
         public DbSet<Class> Classes { get; set; }
+
         public DbSet<Modules> Modules { get; set; }
+
         public DbSet<Signature> Signatures { get; set; }
+
         public DbSet<Course> Courses { get; set; }
-        public EducationPlatformDbContext()
+
+        //public EducationPlatformDbContext()
+        //{
+
+        //}
+        public EducationPlatformDbContext(DbContextOptions<EducationPlatformDbContext> options) : base(options)
         {
 
         }
-        public EducationPlatformDbContext(DbContextOptions<EducationPlatformDbContext> options) : base(options)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
         }
     }
 }

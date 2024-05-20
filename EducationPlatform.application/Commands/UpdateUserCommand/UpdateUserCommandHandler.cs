@@ -1,4 +1,5 @@
-﻿using EducationPlatform.Infraestructure.Persistance;
+﻿using EducationPlatform.Core.Domain.Repositories;
+using EducationPlatform.Infraestructure.Persistance;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -11,21 +12,27 @@ namespace EducationPlatform.application.Commands.UpdateUserCommand
     public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, Unit>
     {
 
-        private readonly EducationPlatformDbContext _dbcontext;
+        private readonly IUserRepository _userRepository;
 
-        public UpdateUserCommandHandler(EducationPlatformDbContext dbcontext)
+        public UpdateUserCommandHandler(IUserRepository userRepository)
         {
-            _dbcontext = dbcontext;
+
+            _userRepository = userRepository;
+
         }
 
         public async Task<Unit> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
-            var user = _dbcontext.Users.SingleOrDefault(u => u.Id == request.Id);
+            //var user = _dbcontext.Users.SingleOrDefault(u => u.Id == request.Id);
+            var user=await _userRepository.GetByIdAsync(request.Id);
+
             user.Update(request.Email, request.PhoneNumber);
+
             //_dbcontext.Update(user);  
-            _dbcontext.SaveChangesAsync();
+            _userRepository.SaveChangesAsync();
 
             return Unit.Value;
+
         }
     }
 }

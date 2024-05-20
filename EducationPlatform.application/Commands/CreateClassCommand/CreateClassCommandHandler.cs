@@ -1,4 +1,5 @@
 ﻿using EducationPlatform.Core.Domain.Entities;
+using EducationPlatform.Core.Domain.Repositories;
 using EducationPlatform.Infraestructure.Persistance;
 using MediatR;
 using System;
@@ -11,19 +12,21 @@ namespace EducationPlatform.application.Commands.CreateClassCommand
 {
     public class CreateClassCommandHandler : IRequestHandler<CreateClassCommand, Guid>
     {
-        private readonly EducationPlatformDbContext _dbcontext;
+        private readonly IClassRepository _classRepository;
 
-        public CreateClassCommandHandler(EducationPlatformDbContext dbcontext)
+
+        public CreateClassCommandHandler(IClassRepository classRepository)
         {
-            _dbcontext = dbcontext;
+
+            _classRepository = classRepository;
+
         }
 
         public async Task<Guid> Handle(CreateClassCommand request, CancellationToken cancellationToken)
         {
             var @class = new Class(request.Name, request.Description, request.VideoLink, request.Duration);
 
-            await _dbcontext.Classes.AddAsync(@class);
-            await _dbcontext.SaveChangesAsync();
+                
 
             return @class.Id;
         }

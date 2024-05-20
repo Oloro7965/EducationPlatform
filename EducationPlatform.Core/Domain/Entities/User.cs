@@ -18,24 +18,41 @@ namespace EducationPlatform.Core.Domain.Entities
         public string PhoneNumber { get; private set; }
         public ERole Role { get; private set; }
         public bool IsActive { get; private set; }
+        public List<Signature> signatures { get; private set; }
         public User() { }
         public User(string fullName,string email,string password,DateTime birthdate,string document,string phoneNumber,ERole role) {
+
             FullName = fullName;
+
             Email = email;
+
             Password = password;
+
             BirthDate = birthdate;
+
             Document = document;
+
             PhoneNumber = phoneNumber;
+
             IsActive = true;
+
             Role = role;
+
         }
         public void Update(string email,string phoneNumber)
         {
+
             Email = email;
+
             PhoneNumber = phoneNumber;
+
         }
         public void Delete() {
+
             this.IsActive = false;
+
         }
+
     }
+
 }

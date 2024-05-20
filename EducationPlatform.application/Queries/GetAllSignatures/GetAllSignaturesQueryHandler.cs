@@ -1,4 +1,5 @@
 ﻿using EducationPlatform.application.ViewModel;
+using EducationPlatform.Core.Domain.Repositories;
 using EducationPlatform.Infraestructure.Persistance;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -12,21 +13,27 @@ namespace EducationPlatform.application.Queries.GetAllSignatures
 {
     public class GetAllSignaturesQueryHandler : IRequestHandler<GetAllSignaturesQuery, List<SignatureViewModel>>
     {
-        private readonly EducationPlatformDbContext _dbcontext;
-
-        public GetAllSignaturesQueryHandler(EducationPlatformDbContext dbcontext)
+        //private readonly EducationPlatformDbContext _dbcontext;
+        private readonly ISignatureRepository _signatureRepository;
+        public GetAllSignaturesQueryHandler(ISignatureRepository signatureRepository)
         {
-            _dbcontext = dbcontext;
+
+            //_dbcontext = dbcontext;
+            _signatureRepository = signatureRepository;
+
         }
 
         public async Task<List<SignatureViewModel>> Handle(GetAllSignaturesQuery request, CancellationToken cancellationToken)
         {
 
-            var signatures = _dbcontext.Signatures;
-            var signaturesViewModel = await signatures.Select(b => new SignatureViewModel(b.Name
+            var signatures=await _signatureRepository.GetAllAsync();
+
+            var signaturesViewModel =signatures.Select(b => new SignatureViewModel(b.Name
                 , b.Duration, b.Courses))
-                .ToListAsync();
+                .ToList();
+
             return signaturesViewModel;
+
         }
     }
 }

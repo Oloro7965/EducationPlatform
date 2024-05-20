@@ -1,4 +1,5 @@
-﻿using EducationPlatform.Infraestructure.Persistance;
+﻿using EducationPlatform.Core.Domain.Repositories;
+using EducationPlatform.Infraestructure.Persistance;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -12,23 +13,25 @@ namespace EducationPlatform.application.Commands.UpdateModuleCommand
 
     {
 
-        private readonly EducationPlatformDbContext _dbcontext;
+        private readonly IModuleRepository _moduleRepository;
 
-        public UpdateModuleCommandHandler(EducationPlatformDbContext dbcontext)
+        public UpdateModuleCommandHandler(IModuleRepository moduleRepository)
 
         {
             
-            _dbcontext = dbcontext;
+            _moduleRepository = moduleRepository;
 
         }
 
         public async Task<Unit> Handle(UpdateModuleCommand request, CancellationToken cancellationToken)
         {
 
-            var Module = _dbcontext.Modules.FirstOrDefault(m => m.Id == request.Id);
+            //var Module = _dbcontext.Modules.FirstOrDefault(m => m.Id == request.Id);
+            var Module = await _moduleRepository.GetByIdAsync(request.Id);
 
             Module.Update(request.Description);
-            _dbcontext.SaveChangesAsync();
+
+            _moduleRepository.SaveChangesAsync();
 
             return Unit.Value;
 

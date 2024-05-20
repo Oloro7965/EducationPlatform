@@ -1,4 +1,5 @@
 ﻿using EducationPlatform.Core.Domain.Entities;
+using EducationPlatform.Core.Domain.Repositories;
 using EducationPlatform.Infraestructure.Persistance;
 using MediatR;
 using System;
@@ -13,12 +14,12 @@ namespace EducationPlatform.application.Commands.CreateModuleCommand
     public class CreateModuleCommandHandler : IRequestHandler<CreateModuleCommand, Guid>
     {
 
-        private readonly EducationPlatformDbContext _dbcontext;
+        private readonly IModuleRepository _moduleRepository;
 
-        public CreateModuleCommandHandler(EducationPlatformDbContext dbcontext)
+        public CreateModuleCommandHandler(IModuleRepository moduleRepository)
         {
 
-            _dbcontext = dbcontext;
+            _moduleRepository = moduleRepository;
 
         }
 
@@ -27,8 +28,7 @@ namespace EducationPlatform.application.Commands.CreateModuleCommand
 
             var module = new Modules(request.Name, request.Description);
 
-            _dbcontext.Modules.AddAsync(module);
-            _dbcontext.SaveChangesAsync();
+            await _moduleRepository.AddAsync(module);
 
             return module.Id;
 

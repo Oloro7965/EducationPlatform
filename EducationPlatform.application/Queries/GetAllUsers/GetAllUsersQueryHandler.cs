@@ -1,4 +1,5 @@
 ﻿using EducationPlatform.application.ViewModel;
+using EducationPlatform.Core.Domain.Repositories;
 using EducationPlatform.Infraestructure.Persistance;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -12,20 +13,25 @@ namespace EducationPlatform.application.Queries.GetAllUsers
 {
     public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, List<UserViewModel>>
     {
-        private readonly EducationPlatformDbContext _dbcontext;
+        private readonly IUserRepository _userRepository;
 
-        public GetAllUsersQueryHandler(EducationPlatformDbContext dbcontext)
+        public GetAllUsersQueryHandler(IUserRepository userRepository)
         {
-            _dbcontext = dbcontext;
+
+            _userRepository = userRepository;
+
         }
 
         public async Task<List<UserViewModel>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
         {
-            var users = _dbcontext.Users.Where(u => u.IsActive.Equals(true));
-            var usersViewModel =await users.Select(b => new UserViewModel(b.FullName
+            var users = await _userRepository.GetAllAsync();
+            //var users = _dbcontext.Users.Where(u => u.IsActive.Equals(true));
+            var usersViewModel =users.Select(b => new UserViewModel(b.FullName
                  ,b.Email,b.BirthDate,b.PhoneNumber))
-                 .ToListAsync();
+                 .ToList();
+
             return usersViewModel;
+
         }
     }
 }

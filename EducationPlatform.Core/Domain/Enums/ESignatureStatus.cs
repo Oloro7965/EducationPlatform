@@ -8,9 +8,12 @@ namespace EducationPlatform.Core.Domain.Enums
 {
     public enum ESignatureStatus
     {
+
         Pending,
         Active,
         Disabled,
         Expired
+
     }
+
 }

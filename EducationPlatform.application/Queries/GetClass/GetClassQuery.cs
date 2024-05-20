@@ -12,7 +12,9 @@ namespace EducationPlatform.application.Queries.GetClass
     {
         public GetClassQuery(Guid id)
         {
+
             Id = id;
+
         }
 
         public Guid Id { get; private set; }

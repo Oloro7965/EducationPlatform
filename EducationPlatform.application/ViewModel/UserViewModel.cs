@@ -10,11 +10,16 @@ namespace EducationPlatform.application.ViewModel
     {
         public UserViewModel(string fullName, string email,DateTime birthDate, string phoneNumber)
         {
+
             FullName = fullName;
+
             Email = email;
+
             //Password = password;
             BirthDate = birthDate;
+
             PhoneNumber = phoneNumber;
+
         }
         public string FullName { get; private set; }
         public string Email { get; private set; }

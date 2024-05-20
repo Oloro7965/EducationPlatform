@@ -1,5 +1,7 @@
 ﻿using EducationPlatform.application.ViewModel;
+using EducationPlatform.Core.Domain.Repositories;
 using EducationPlatform.Infraestructure.Persistance;
+using EducationPlatform.Infraestructure.Persistance.Repositories;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -11,18 +13,24 @@ namespace EducationPlatform.application.Queries.GetModule
 {
     public class GetModuleQueryHandler : IRequestHandler<GetModuleQuery, ModuleViewModel>
     {
-        private readonly EducationPlatformDbContext _dbcontext;
+        private readonly IModuleRepository _moduleRepository;
 
-        public GetModuleQueryHandler(EducationPlatformDbContext dbcontext)
+        public GetModuleQueryHandler(IModuleRepository moduleRepository)
         {
-            _dbcontext = dbcontext;
+
+            _moduleRepository = moduleRepository;
+
         }
 
         public async Task<ModuleViewModel> Handle(GetModuleQuery request, CancellationToken cancellationToken)
         {
-            var module = _dbcontext.Modules.FirstOrDefault(m => m.Id == request.Id);
+            var module = await _moduleRepository.GetByIdAsync(request.Id);
+            
+
             var ModuleDetailViewModel = new ModuleViewModel(module.Name, module.Description, module.CreatedDate);
+
             return ModuleDetailViewModel;
+
         }
     }
 }

@@ -12,9 +12,12 @@ namespace EducationPlatform.application.Queries.GetSignature
     {
         public GetSignatureQuery(Guid id)
         {
+
             Id = id;
+
         }
 
         public Guid Id { get; private set; }
+
     }
 }

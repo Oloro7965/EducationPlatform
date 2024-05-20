@@ -10,10 +10,15 @@ namespace EducationPlatform.application.ViewModel
     {
         public ClassViewModel(string name, string description, string videoLink, int duration)
         {
+
             Name = name;
+
             Description = description;
+
             VideoLink = videoLink;
+
             Duration = duration;
+
         }
         public string Name { get; private set; }
         public string Description { get; private set; }

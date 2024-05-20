@@ -11,12 +11,20 @@ namespace EducationPlatform.Core.Domain.Entities
     {
         public string Name { get; private set; }
         public int Duration { get; private set; }
-        public List<Course> Courses { get;private set; }
+        public List<Course> Courses { get; private set; }
+        public Guid UserId { get; private set; }
+        public User user { get; private set; }
         public Signature() { }
         public Signature(string name,int duration) {
+
             Name = name;
+
             Duration = duration;
+
             Courses=new List<Course>();
+
         }
+
     }
+
 }

@@ -11,9 +11,13 @@ namespace EducationPlatform.application.ViewModel
     {
         public SignatureViewModel(string name, int duration, List<Course> courses)
         {
+
             Name = name;
+
             Duration = duration;
+
             Courses = courses;
+
         }
         public string Name { get; private set; }
         public int Duration { get; private set; }

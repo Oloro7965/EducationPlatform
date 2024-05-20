@@ -13,9 +13,11 @@ namespace EducationPlatform.application.Queries.GetAllUsers
     {
         public GetAllUsersQuery(string query)
         {
+
             Query = query;
+
         }
 
-        public string Query { get;private set; }
+        public string Query { get; private set; }
     }
 }

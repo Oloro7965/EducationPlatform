@@ -1,4 +1,5 @@
 ﻿using EducationPlatform.application.ViewModel;
+using EducationPlatform.Core.Domain.Repositories;
 using EducationPlatform.Infraestructure.Persistance;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -12,21 +13,26 @@ namespace EducationPlatform.application.Queries.GetAllModules
 {
     public class GetAllModulesQueryHandler : IRequestHandler<GetAllModulesQuery, List<ModuleViewModel>>
     {
-        private readonly EducationPlatformDbContext _dbcontext;
+        private readonly IModuleRepository _moduleRepository;
 
-        public GetAllModulesQueryHandler(EducationPlatformDbContext dbcontext)
+        public GetAllModulesQueryHandler(IModuleRepository moduleRepository)
         {
-            _dbcontext = dbcontext;
+
+            _moduleRepository = moduleRepository;
+
         }
 
         public async Task<List<ModuleViewModel>> Handle(GetAllModulesQuery request, CancellationToken cancellationToken)
         {
 
-            var modules = _dbcontext.Modules;
-            var modulesViewModel = await modules.Select(b => new ModuleViewModel(b.Name
+            var modules = await _moduleRepository.GetAllAsync();
+
+            var modulesViewModel =modules.Select(b => new ModuleViewModel(b.Name
                 , b.Description, b.CreatedDate))
-                .ToListAsync();
+                .ToList();
+
             return modulesViewModel;
+
         }
     }
 }

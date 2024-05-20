@@ -13,7 +13,11 @@ namespace EducationPlatform.Infraestructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Signature> builder)
         {
-            throw new NotImplementedException();
+
+            builder.HasKey(x => x.Id);
+            builder.HasMany(x=>x.Courses).
+                WithOne(x=>x.Signature).HasForeignKey(x=>x.SignatureId).
+                OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

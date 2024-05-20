@@ -10,9 +10,13 @@ namespace EducationPlatform.application.ViewModel
     {
         public ModuleViewModel(string name, string description, DateTime createdDate)
         {
+
             Name = name;
+
             Description = description;
+
             CreatedDate = createdDate;
+
         }
 
         public string Name { get; private set; }

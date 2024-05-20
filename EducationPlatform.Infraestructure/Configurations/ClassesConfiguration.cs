@@ -13,7 +13,9 @@ namespace EducationPlatform.Infraestructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Class> builder)
         {
-            throw new NotImplementedException();
+
+            builder.HasKey(x => x.Id);
+
         }
     }
 }

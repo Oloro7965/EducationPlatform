@@ -1,4 +1,5 @@
 ﻿using EducationPlatform.Core.Domain.Entities;
+using EducationPlatform.Core.Domain.Repositories;
 using EducationPlatform.Infraestructure.Persistance;
 using MediatR;
 using System;
@@ -11,19 +12,24 @@ namespace EducationPlatform.application.Commands.CreateUserCommand
 {
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Guid>
     {
-        private readonly EducationPlatformDbContext _dbcontext;
+        private readonly IUserRepository _userRepository;
 
-        public CreateUserCommandHandler(EducationPlatformDbContext dbcontext)
+        public CreateUserCommandHandler(IUserRepository userRepository)
         {
-            _dbcontext = dbcontext;
+
+            _userRepository = userRepository;
+
         }
 
         public async Task<Guid> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
+            
             var user = new User(request.FullName, request.Email, request.Password, request.BirthDate, request.Document, request.PhoneNumber, request.Role);
-            await _dbcontext.Users.AddAsync(user);
-            await _dbcontext.SaveChangesAsync();
+
+            await _userRepository.AddAsync(user);
+
             return user.Id;
+
         }
     }
 }

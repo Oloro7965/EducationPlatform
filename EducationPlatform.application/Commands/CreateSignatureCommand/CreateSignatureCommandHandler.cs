@@ -1,4 +1,5 @@
 ﻿using EducationPlatform.Core.Domain.Entities;
+using EducationPlatform.Core.Domain.Repositories;
 using EducationPlatform.Infraestructure.Persistance;
 using MediatR;
 using System;
@@ -11,19 +12,20 @@ namespace EducationPlatform.application.Commands.CreateSignatureCommand
 {
     public class CreateSignatureCommandHandler : IRequestHandler<CreateSignatureCommand, Guid>
     {
-        private readonly EducationPlatformDbContext _dbcontext;
+        private readonly ISignatureRepository _signatureRepository;
 
-        public CreateSignatureCommandHandler(EducationPlatformDbContext dbcontext)
+        public CreateSignatureCommandHandler(ISignatureRepository signatureRepository)
         {
-            _dbcontext = dbcontext;
+            
+            _signatureRepository = signatureRepository;
+
         }
 
         public async Task<Guid> Handle(CreateSignatureCommand request, CancellationToken cancellationToken)
         {
             var signature = new Signature(request.Name, request.Duration);
-
-            await _dbcontext.Signatures.AddAsync(signature);
-            await _dbcontext.SaveChangesAsync();
+           
+            await _signatureRepository.AddAsync(signature);
 
             return signature.Id;
         }

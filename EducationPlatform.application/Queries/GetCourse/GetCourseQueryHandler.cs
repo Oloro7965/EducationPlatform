@@ -1,4 +1,5 @@
 ﻿using EducationPlatform.application.ViewModel;
+using EducationPlatform.Core.Domain.Repositories;
 using EducationPlatform.Infraestructure.Persistance;
 using MediatR;
 using System;
@@ -11,18 +12,24 @@ namespace EducationPlatform.application.Queries.GetCourse
 {
     public class GetCourseQueryHandler : IRequestHandler<GetCourseQuery, CourseViewModel>
     {
-        private readonly EducationPlatformDbContext _dbcontext;
+        private readonly ICourseRepository _courseRepository;
 
-        public GetCourseQueryHandler(EducationPlatformDbContext dbcontext)
+        public GetCourseQueryHandler(ICourseRepository courseRepository)
         {
-            _dbcontext = dbcontext;
+
+            _courseRepository = courseRepository;
+
         }
 
         public async Task<CourseViewModel> Handle(GetCourseQuery request, CancellationToken cancellationToken)
         {
-            var course = _dbcontext.Courses.FirstOrDefault(m => m.Id == request.Id);
+            //var course = _dbcontext.Courses.FirstOrDefault(m => m.Id == request.Id);
+            var course = await _courseRepository.GetByIdAsync(request.Id);
+
             var CourseDetailViewModel = new CourseViewModel(course.Name, course.Description, course.Cover);
+
             return CourseDetailViewModel;
+
         }
     }
 }

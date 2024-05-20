@@ -1,4 +1,5 @@
 ﻿using EducationPlatform.Core.Domain.Entities;
+using EducationPlatform.Core.Domain.Repositories;
 using EducationPlatform.Infraestructure.Persistance;
 using MediatR;
 using System;
@@ -11,21 +12,24 @@ namespace EducationPlatform.application.Commands.CreateCourseCommand
 {
     public class CreateCourseCommandHandler : IRequestHandler<CreateCourseCommand, Guid>
     {
-        private readonly EducationPlatformDbContext _dbcontext;
+        private readonly ICourseRepository _courseRepository;
 
-        public CreateCourseCommandHandler(EducationPlatformDbContext dbcontext)
+        public CreateCourseCommandHandler(ICourseRepository courseRepository)
         {
-            _dbcontext = dbcontext;
+            
+            _courseRepository = courseRepository;
+
         }
 
         public async Task<Guid> Handle(CreateCourseCommand request, CancellationToken cancellationToken)
         {
+
             var course = new Course(request.Name, request.Description, request.Cover);
 
-            _dbcontext.Courses.AddAsync(course);
-            _dbcontext.SaveChangesAsync();
+            await _courseRepository.AddAsync(course);
             
             return course.Id;
+
         }
     }
 }
