@@ -15,9 +15,7 @@ namespace EducationPlatform.Infraestructure.Configurations
         {
 
             builder.HasKey(x => x.Id);
-            builder.HasMany(x=>x.signatures).
-                WithOne(x=>x.user).HasForeignKey(x=>x.UserId).
-                OnDelete(DeleteBehavior.Restrict);
+            
                 
         }
 

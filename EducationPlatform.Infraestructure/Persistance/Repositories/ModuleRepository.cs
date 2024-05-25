@@ -37,9 +37,9 @@ namespace EducationPlatform.Infraestructure.Persistance.Repositories
         public async Task AddAsync(Modules module)
         {
 
-            _dbcontext.Modules.AddAsync(module);
-
-            _dbcontext.SaveChangesAsync();
+            await _dbcontext.Modules.AddAsync(module);
+            
+            await _dbcontext.SaveChangesAsync();
 
         }
 

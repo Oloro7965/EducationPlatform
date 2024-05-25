@@ -26,7 +26,7 @@ namespace EducationPlatform.application.Commands.CreateClassCommand
         {
             var @class = new Class(request.Name, request.Description, request.VideoLink, request.Duration);
 
-                
+            await _classRepository.AddAsync(@class);    
 
             return @class.Id;
         }

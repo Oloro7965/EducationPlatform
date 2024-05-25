@@ -124,7 +124,7 @@ namespace EducationPlatform.Infraestructure.Persistance.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid?>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -209,13 +209,9 @@ namespace EducationPlatform.Infraestructure.Persistance.Migrations
 
             modelBuilder.Entity("EducationPlatform.Core.Domain.Entities.Signature", b =>
                 {
-                    b.HasOne("EducationPlatform.Core.Domain.Entities.User", "user")
+                    b.HasOne("EducationPlatform.Core.Domain.Entities.User", null)
                         .WithMany("signatures")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("user");
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("EducationPlatform.Core.Domain.Entities.Course", b =>

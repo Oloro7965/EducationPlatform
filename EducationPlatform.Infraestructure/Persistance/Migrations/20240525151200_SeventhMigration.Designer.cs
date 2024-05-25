@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EducationPlatform.Infraestructure.Persistance.Migrations
 {
     [DbContext(typeof(EducationPlatformDbContext))]
-    [Migration("20240520125335_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20240525151200_SeventhMigration")]
+    partial class SeventhMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -127,7 +127,7 @@ namespace EducationPlatform.Infraestructure.Persistance.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid?>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -182,7 +182,7 @@ namespace EducationPlatform.Infraestructure.Persistance.Migrations
                     b.HasOne("EducationPlatform.Core.Domain.Entities.Modules", "module")
                         .WithMany("Classes")
                         .HasForeignKey("moduleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("module");
@@ -193,7 +193,7 @@ namespace EducationPlatform.Infraestructure.Persistance.Migrations
                     b.HasOne("EducationPlatform.Core.Domain.Entities.Signature", "Signature")
                         .WithMany("Courses")
                         .HasForeignKey("SignatureId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Signature");
@@ -204,7 +204,7 @@ namespace EducationPlatform.Infraestructure.Persistance.Migrations
                     b.HasOne("EducationPlatform.Core.Domain.Entities.Course", "Course")
                         .WithMany("Modules")
                         .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Course");
@@ -212,13 +212,9 @@ namespace EducationPlatform.Infraestructure.Persistance.Migrations
 
             modelBuilder.Entity("EducationPlatform.Core.Domain.Entities.Signature", b =>
                 {
-                    b.HasOne("EducationPlatform.Core.Domain.Entities.User", "user")
+                    b.HasOne("EducationPlatform.Core.Domain.Entities.User", null)
                         .WithMany("signatures")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("user");
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("EducationPlatform.Core.Domain.Entities.Course", b =>

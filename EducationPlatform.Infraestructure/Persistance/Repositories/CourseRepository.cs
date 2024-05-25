@@ -35,9 +35,9 @@ namespace EducationPlatform.Infraestructure.Persistance.Repositories
         public async Task AddAsync(Course course)
         {
 
-            _dbcontext.Courses.AddAsync(course);
+            await _dbcontext.Courses.AddAsync(course);
 
-            _dbcontext.SaveChangesAsync();
+            await _dbcontext.SaveChangesAsync();
 
         }
 
