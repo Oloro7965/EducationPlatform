@@ -11,11 +11,11 @@ namespace EducationPlatform.Core.Domain.Entities
         public string Description { get;private set; }
         public string VideoLink { get; private  set; }
         public int Duration { get; private set; }
-        public Guid moduleId { get; private set; }
+        public Guid ModuleId { get; private set; }
         public Modules module { get; private set; }
         public Class() { }
 
-        public Class(string name, string description, string videoLink, int duration)
+        public Class(string name, string description, string videoLink, int duration, Guid moduleId)
         {
 
             Name = name;
@@ -25,6 +25,8 @@ namespace EducationPlatform.Core.Domain.Entities
             VideoLink = videoLink;
 
             Duration = duration;
+
+            ModuleId = moduleId;
 
         }
 

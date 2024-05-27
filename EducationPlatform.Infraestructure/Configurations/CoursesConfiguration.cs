@@ -18,7 +18,7 @@ namespace EducationPlatform.Infraestructure.Configurations
             builder.HasMany(x=>x.Modules).
                 WithOne(x=> x.Course).HasForeignKey(x=>x.CourseId).
                 OnDelete(DeleteBehavior.Restrict);
-                
+           
         }
     }
 }

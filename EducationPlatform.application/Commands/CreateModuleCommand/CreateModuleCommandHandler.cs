@@ -26,7 +26,7 @@ namespace EducationPlatform.application.Commands.CreateModuleCommand
         public async Task<Guid> Handle(CreateModuleCommand request, CancellationToken cancellationToken)
         {
 
-            var module = new Modules(request.Name, request.Description);
+            var module = new Modules(request.Name, request.Description,request.courseId);
 
             await _moduleRepository.AddAsync(module);
 

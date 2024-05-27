@@ -24,7 +24,7 @@ namespace EducationPlatform.application.Commands.CreateClassCommand
 
         public async Task<Guid> Handle(CreateClassCommand request, CancellationToken cancellationToken)
         {
-            var @class = new Class(request.Name, request.Description, request.VideoLink, request.Duration);
+            var @class = new Class(request.Name, request.Description, request.VideoLink, request.Duration,request.moduleId);
 
             await _classRepository.AddAsync(@class);    
 

@@ -19,7 +19,7 @@ namespace EducationPlatform.Core.Domain.Entities
 
         public Course() { }
 
-        public Course(string name, string description, string cover)
+        public Course(string name, string description, string cover, Guid signatureId)
         {
 
             Name = name;
@@ -29,6 +29,8 @@ namespace EducationPlatform.Core.Domain.Entities
             Cover = cover;
 
             CreatedDate = DateTime.Now;
+
+            SignatureId = signatureId;
 
         }
         public void Update(string description)

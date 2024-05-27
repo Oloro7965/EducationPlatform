@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace EducationPlatform.Infraestructure.Persistance.Migrations
 {
     /// <inheritdoc />
-    public partial class SeventhMigration : Migration
+    public partial class FirstMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -95,23 +95,23 @@ namespace EducationPlatform.Infraestructure.Persistance.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     VideoLink = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Duration = table.Column<int>(type: "int", nullable: false),
-                    moduleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ModuleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Classes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Classes_Modules_moduleId",
-                        column: x => x.moduleId,
+                        name: "FK_Classes_Modules_ModuleId",
+                        column: x => x.ModuleId,
                         principalTable: "Modules",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Classes_moduleId",
+                name: "IX_Classes_ModuleId",
                 table: "Classes",
-                column: "moduleId");
+                column: "ModuleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Courses_SignatureId",

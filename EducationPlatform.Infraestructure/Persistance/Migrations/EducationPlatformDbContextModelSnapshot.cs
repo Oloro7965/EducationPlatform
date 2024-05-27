@@ -35,6 +35,9 @@ namespace EducationPlatform.Infraestructure.Persistance.Migrations
                     b.Property<int>("Duration")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("ModuleId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -43,12 +46,9 @@ namespace EducationPlatform.Infraestructure.Persistance.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("moduleId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("moduleId");
+                    b.HasIndex("ModuleId");
 
                     b.ToTable("Classes");
                 });
@@ -173,7 +173,7 @@ namespace EducationPlatform.Infraestructure.Persistance.Migrations
                 {
                     b.HasOne("EducationPlatform.Core.Domain.Entities.Modules", "module")
                         .WithMany("Classes")
-                        .HasForeignKey("moduleId")
+                        .HasForeignKey("ModuleId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 

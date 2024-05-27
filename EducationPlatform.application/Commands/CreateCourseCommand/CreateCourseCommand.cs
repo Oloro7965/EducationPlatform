@@ -12,5 +12,7 @@ namespace EducationPlatform.application.Commands.CreateCourseCommand
         public string Name { get; set; }
         public string Description { get; set; }
         public string Cover { get; set; }
+
+        public Guid signatureId { get; set; }
     }
 }

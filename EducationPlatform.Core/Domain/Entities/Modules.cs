@@ -15,7 +15,7 @@ namespace EducationPlatform.Core.Domain.Entities
         public Course Course { get; private set; }
         public List<Class> Classes { get; private set; }
         public Modules() { }
-        public Modules(string name, string description)
+        public Modules(string name, string description,Guid courseId)
         {
 
             Name = name;
@@ -23,6 +23,8 @@ namespace EducationPlatform.Core.Domain.Entities
             Description = description;
 
             CreatedDate = DateTime.Now;
+
+            CourseId = courseId;
 
         }
         public void Update(string description)

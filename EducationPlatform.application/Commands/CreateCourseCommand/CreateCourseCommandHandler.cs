@@ -24,7 +24,7 @@ namespace EducationPlatform.application.Commands.CreateCourseCommand
         public async Task<Guid> Handle(CreateCourseCommand request, CancellationToken cancellationToken)
         {
 
-            var course = new Course(request.Name, request.Description, request.Cover);
+            var course = new Course(request.Name, request.Description, request.Cover,request.signatureId);
 
             await _courseRepository.AddAsync(course);
             

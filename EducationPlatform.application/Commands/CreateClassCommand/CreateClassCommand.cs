@@ -13,5 +13,7 @@ namespace EducationPlatform.application.Commands.CreateClassCommand
         public string Description { get; set; }
         public string VideoLink { get; set; }
         public int Duration { get; set; }
+
+        public Guid moduleId { get; set; }
     }
 }

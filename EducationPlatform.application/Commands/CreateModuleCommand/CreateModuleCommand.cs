@@ -14,6 +14,8 @@ namespace EducationPlatform.application.Commands.CreateModuleCommand
 
         public string Description { get; set; }
 
+        public Guid courseId { get; set; }
+
     }
 
 }
