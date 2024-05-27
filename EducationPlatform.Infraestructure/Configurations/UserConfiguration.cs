@@ -15,8 +15,8 @@ namespace EducationPlatform.Infraestructure.Configurations
         {
 
             builder.HasKey(x => x.Id);
+            builder.Ignore(x => x.signatures);
             
-                
         }
 
     }

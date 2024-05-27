@@ -12,6 +12,19 @@ namespace EducationPlatform.Infraestructure.Persistance.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Signatures",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Duration = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Signatures", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -28,25 +41,6 @@ namespace EducationPlatform.Infraestructure.Persistance.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Signatures",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Duration = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Signatures", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Signatures_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -128,11 +122,6 @@ namespace EducationPlatform.Infraestructure.Persistance.Migrations
                 name: "IX_Modules_CourseId",
                 table: "Modules",
                 column: "CourseId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Signatures_UserId",
-                table: "Signatures",
-                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -142,6 +131,9 @@ namespace EducationPlatform.Infraestructure.Persistance.Migrations
                 name: "Classes");
 
             migrationBuilder.DropTable(
+                name: "Users");
+
+            migrationBuilder.DropTable(
                 name: "Modules");
 
             migrationBuilder.DropTable(
@@ -149,9 +141,6 @@ namespace EducationPlatform.Infraestructure.Persistance.Migrations
 
             migrationBuilder.DropTable(
                 name: "Signatures");
-
-            migrationBuilder.DropTable(
-                name: "Users");
         }
     }
 }

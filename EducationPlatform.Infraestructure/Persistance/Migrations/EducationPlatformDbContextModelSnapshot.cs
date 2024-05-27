@@ -124,12 +124,7 @@ namespace EducationPlatform.Infraestructure.Persistance.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Signatures");
                 });
@@ -207,13 +202,6 @@ namespace EducationPlatform.Infraestructure.Persistance.Migrations
                     b.Navigation("Course");
                 });
 
-            modelBuilder.Entity("EducationPlatform.Core.Domain.Entities.Signature", b =>
-                {
-                    b.HasOne("EducationPlatform.Core.Domain.Entities.User", null)
-                        .WithMany("signatures")
-                        .HasForeignKey("UserId");
-                });
-
             modelBuilder.Entity("EducationPlatform.Core.Domain.Entities.Course", b =>
                 {
                     b.Navigation("Modules");
@@ -227,11 +215,6 @@ namespace EducationPlatform.Infraestructure.Persistance.Migrations
             modelBuilder.Entity("EducationPlatform.Core.Domain.Entities.Signature", b =>
                 {
                     b.Navigation("Courses");
-                });
-
-            modelBuilder.Entity("EducationPlatform.Core.Domain.Entities.User", b =>
-                {
-                    b.Navigation("signatures");
                 });
 #pragma warning restore 612, 618
         }
