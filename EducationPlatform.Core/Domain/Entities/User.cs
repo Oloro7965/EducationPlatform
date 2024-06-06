@@ -18,7 +18,7 @@ namespace EducationPlatform.Core.Domain.Entities
         public string PhoneNumber { get; private set; }
         public ERole Role { get; private set; }
         public bool IsActive { get; private set; }
-        public List<Signature> signatures { get; private set; }
+        public List<UserSignature> signatures { get; private set; }
         public User() { }
         public User(string fullName,string email,string password,DateTime birthdate,string document,string phoneNumber,ERole role) {
 

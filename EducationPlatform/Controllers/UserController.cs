@@ -1,4 +1,6 @@
-﻿using EducationPlatform.application.Commands.CreateUserCommand;
+﻿using EducationPlatform.application.Commands.CreateSignatureCommand;
+using EducationPlatform.application.Commands.CreateUserCommand;
+using EducationPlatform.application.Commands.CreateUserSignatureCommand;
 using EducationPlatform.application.Commands.DeleteUserCommand;
 using EducationPlatform.application.Commands.UpdateUserCommand;
 using EducationPlatform.application.Queries.GetAllUsers;
@@ -51,7 +53,6 @@ namespace EducationPlatform.API.Controllers
             return CreatedAtAction(nameof(GetById), new {id = userId}, command);
 
         }
-
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(Guid id, [FromBody] UpdateUserCommand command) {
 

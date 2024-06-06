@@ -17,10 +17,12 @@ namespace EducationPlatform.Infraestructure.Persistance
 
         public DbSet<Modules> Modules { get; set; }
 
+        public DbSet<UserSignature> UserSignatures { get; set; }
+
         public DbSet<Signature> Signatures { get; set; }
 
         public DbSet<Course> Courses { get; set; }
-
+        
         //public EducationPlatformDbContext()
         //{
 
