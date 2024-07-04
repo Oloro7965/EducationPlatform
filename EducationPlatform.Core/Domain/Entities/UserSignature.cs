@@ -9,7 +9,7 @@ namespace EducationPlatform.Core.Domain.Entities
 {
     public class UserSignature : BaseEntity
     {
-        public UserSignature(Guid userId, Guid signatureId, ESignatureStatus signatureStatus,DateTime expiredDate)
+        public UserSignature(Guid userId, Guid signatureId, ESignatureStatus signatureStatus, DateTime expiredDate)
         {
 
             UserId = userId;
@@ -19,21 +19,25 @@ namespace EducationPlatform.Core.Domain.Entities
             SignatureStatus = signatureStatus;
 
             StartDate = DateTime.Now;
-            
+
             ExpiredDate = expiredDate;
 
         }
-
         public Guid UserId { get; private set; }
 
         public Guid SignatureId { get; private set; }
+        public User user { get; private set; }
+        public Signature signature { get; private set; }
 
         public ESignatureStatus SignatureStatus { get; private set; }
 
         public DateTime StartDate { get; private set; }
 
         public DateTime ExpiredDate { get; private set; }
-        
+        public void UpdateStatus(ESignatureStatus updateStatus) {
+            SignatureStatus = updateStatus;
+        }
 
     }
+
 }

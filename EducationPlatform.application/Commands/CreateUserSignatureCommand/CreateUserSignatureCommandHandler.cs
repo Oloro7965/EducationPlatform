@@ -1,4 +1,7 @@
-﻿using MediatR;
+﻿using EducationPlatform.Core.Domain.Entities;
+using EducationPlatform.Core.Domain.Repositories;
+using EducationPlatform.Infraestructure.Persistance.Repositories;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +12,22 @@ namespace EducationPlatform.application.Commands.CreateUserSignatureCommand
 {
     public class CreateUserSignatureCommandHandler : IRequestHandler<CreateUserSignatureCommand, Guid>
     {
+        private readonly IUserSignatureRepository _userSignatureRepository;
 
-        public Task<Guid> Handle(CreateUserSignatureCommand request, CancellationToken cancellationToken)
+        public CreateUserSignatureCommandHandler(IUserSignatureRepository userSignatureRepository)
         {
-            throw new NotImplementedException();
+            _userSignatureRepository = userSignatureRepository;
+        }
+
+        public async Task<Guid> Handle(CreateUserSignatureCommand request, CancellationToken cancellationToken)
+        {
+
+            var userSignature = new UserSignature(request.UserId,request.SignatureId,request.SignatureStatus,request.ExpiredDate);
+
+            await _userSignatureRepository.AddAsync(userSignature);
+
+            return userSignature.Id;
+
         }
     }
 }

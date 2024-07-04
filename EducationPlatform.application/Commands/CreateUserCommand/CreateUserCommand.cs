@@ -10,6 +10,7 @@ namespace EducationPlatform.application.Commands.CreateUserCommand
 {
     public class CreateUserCommand: IRequest<Guid>
     {
+
         public string FullName { get; set; }
         public string Email { get; set; }
         //colocar encrypted na senha
@@ -18,5 +19,7 @@ namespace EducationPlatform.application.Commands.CreateUserCommand
         public string Document { get; set; }
         public string PhoneNumber { get; set; }
         public ERole Role { get; set; }
+
     }
+
 }

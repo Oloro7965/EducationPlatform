@@ -14,7 +14,11 @@ namespace EducationPlatform.Infraestructure.Configurations
     {
         public void Configure(EntityTypeBuilder<UserSignature> builder)
         {
-            throw new NotImplementedException();
+
+            builder.HasKey(x => x.Id);
+
         }
+
     }
+
 }

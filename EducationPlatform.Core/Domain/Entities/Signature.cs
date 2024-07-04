@@ -11,6 +11,7 @@ namespace EducationPlatform.Core.Domain.Entities
     {
         public string Name { get; private set; }
         public int Duration { get; private set; }
+        public List<UserSignature> usersignatures { get; private set; }
         public List<Course> Courses { get; private set; }
         public Signature() { }
         public Signature(string name,int duration) {

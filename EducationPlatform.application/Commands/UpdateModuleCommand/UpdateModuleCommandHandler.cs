@@ -31,7 +31,7 @@ namespace EducationPlatform.application.Commands.UpdateModuleCommand
 
             Module.Update(request.Description);
 
-            _moduleRepository.SaveChangesAsync();
+            await _moduleRepository.SaveChangesAsync();
 
             return Unit.Value;
 

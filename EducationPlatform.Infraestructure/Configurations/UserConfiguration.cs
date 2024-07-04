@@ -15,8 +15,11 @@ namespace EducationPlatform.Infraestructure.Configurations
         {
 
             builder.HasKey(x => x.Id);
-            builder.Ignore(x => x.signatures);
-            
+            builder.Ignore(x => x.usersignatures);
+            builder.HasMany(x=>x.usersignatures).
+                WithOne(x=>x.user).HasForeignKey(x=>x.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
         }
 
     }

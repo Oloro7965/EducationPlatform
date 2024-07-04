@@ -2,6 +2,7 @@
 using EducationPlatform.application.Commands.CreateUserCommand;
 using EducationPlatform.application.Commands.CreateUserSignatureCommand;
 using EducationPlatform.application.Commands.DeleteUserCommand;
+using EducationPlatform.application.Commands.UpdateSignatureCommand;
 using EducationPlatform.application.Commands.UpdateUserCommand;
 using EducationPlatform.application.Queries.GetAllUsers;
 using EducationPlatform.application.Queries.GetUser;
@@ -53,6 +54,17 @@ namespace EducationPlatform.API.Controllers
             return CreatedAtAction(nameof(GetById), new {id = userId}, command);
 
         }
+        [HttpPost]
+        [Route("UserSignatures")]
+        public async Task<IActionResult> CreateUserSignature([FromBody] CreateUserSignatureCommand command)
+        {
+
+            var userSignatureId=await _mediator
+                .Send(command);
+
+            return Ok(userSignatureId);
+
+        }
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(Guid id, [FromBody] UpdateUserCommand command) {
 
@@ -63,6 +75,18 @@ namespace EducationPlatform.API.Controllers
             return NoContent();
             
         }
+        [HttpPut("{id}/UserSignature")]
+        public async Task<IActionResult> Put(Guid id, [FromBody] UpdateUserSignatureCommand command)
+        {
+
+            command.Id = id;
+
+            await _mediator.Send(command);
+
+            return NoContent();
+
+        }
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
