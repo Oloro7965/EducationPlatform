@@ -28,6 +28,7 @@ namespace EducationPlatform.Core.Domain.Entities
         public Guid SignatureId { get; private set; }
         public User user { get; private set; }
         public Signature signature { get; private set; }
+        public SignaturePayment signaturePayment { get; private set; }
 
         public ESignatureStatus SignatureStatus { get; private set; }
 

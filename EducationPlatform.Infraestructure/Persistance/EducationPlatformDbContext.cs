@@ -18,6 +18,7 @@ namespace EducationPlatform.Infraestructure.Persistance
         public DbSet<Modules> Modules { get; set; }
 
         public DbSet<UserSignature> UserSignatures { get; set; }
+        public DbSet<SignaturePayment> SignaturePayments { get; set; }
 
         public DbSet<Signature> Signatures { get; set; }
 

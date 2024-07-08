@@ -30,5 +30,9 @@ namespace EducationPlatform.Core.Domain.Entities
         public string PaymentLink { get; private set; }
         public string IdExternalPayment { get; private set; }
         public DateTime DueDate { get; private set; }
+        public void UpdatePaymentStatus(EPaymentStatus paymentStatus)
+        {
+            PaymentStatus = paymentStatus;
+        }
     }
 }

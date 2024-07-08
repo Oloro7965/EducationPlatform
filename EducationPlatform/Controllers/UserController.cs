@@ -1,4 +1,5 @@
-﻿using EducationPlatform.application.Commands.CreateSignatureCommand;
+﻿using EducationPlatform.application.Commands.CreatePaymentSignatureCommand;
+using EducationPlatform.application.Commands.CreateSignatureCommand;
 using EducationPlatform.application.Commands.CreateUserCommand;
 using EducationPlatform.application.Commands.CreateUserSignatureCommand;
 using EducationPlatform.application.Commands.DeleteUserCommand;
@@ -64,6 +65,14 @@ namespace EducationPlatform.API.Controllers
 
             return Ok(userSignatureId);
 
+        }
+        [HttpPost]
+        [Route("UserSignatures/PaymentSignature")]
+        public async Task<IActionResult> CreatePaymentSignature([FromBody] CreateSignaturePaymentCommand command)
+        {
+            var SignaturePaymentId=await _mediator
+                .Send(command);
+            return Ok(SignaturePaymentId);
         }
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(Guid id, [FromBody] UpdateUserCommand command) {
