@@ -66,6 +66,34 @@ namespace EducationPlatform.Infraestructure.Persistance.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UserSignatures",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SignatureId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SignatureStatus = table.Column<int>(type: "int", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ExpiredDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserSignatures", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserSignatures_Signatures_SignatureId",
+                        column: x => x.SignatureId,
+                        principalTable: "Signatures",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_UserSignatures_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Modules",
                 columns: table => new
                 {
@@ -82,6 +110,31 @@ namespace EducationPlatform.Infraestructure.Persistance.Migrations
                         name: "FK_Modules_Courses_CourseId",
                         column: x => x.CourseId,
                         principalTable: "Courses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SignaturePayments",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProcessingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PaymentStatus = table.Column<int>(type: "int", nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
+                    UserSignatureId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PaymentLink = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IdExternalPayment = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DueDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SignaturePayments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SignaturePayments_UserSignatures_UserSignatureId",
+                        column: x => x.UserSignatureId,
+                        principalTable: "UserSignatures",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -122,6 +175,22 @@ namespace EducationPlatform.Infraestructure.Persistance.Migrations
                 name: "IX_Modules_CourseId",
                 table: "Modules",
                 column: "CourseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SignaturePayments_UserSignatureId",
+                table: "SignaturePayments",
+                column: "UserSignatureId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserSignatures_SignatureId",
+                table: "UserSignatures",
+                column: "SignatureId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserSignatures_UserId",
+                table: "UserSignatures",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -131,13 +200,19 @@ namespace EducationPlatform.Infraestructure.Persistance.Migrations
                 name: "Classes");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "SignaturePayments");
 
             migrationBuilder.DropTable(
                 name: "Modules");
 
             migrationBuilder.DropTable(
+                name: "UserSignatures");
+
+            migrationBuilder.DropTable(
                 name: "Courses");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Signatures");

@@ -8,9 +8,8 @@ namespace EducationPlatform.Core.Domain.Enums
 {
     public enum ERole
     {
-
-        admin,
         Student,
+        Admin
 
     }
 }
