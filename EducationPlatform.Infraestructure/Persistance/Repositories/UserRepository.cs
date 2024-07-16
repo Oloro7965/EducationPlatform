@@ -28,9 +28,10 @@ namespace EducationPlatform.Infraestructure.Persistance.Repositories
         }
         public async Task<User> GetByIdAsync(Guid id)
         {
-
+            //var User = await _dbcontext
+            //    .Users.Include(u => u.usersignatures).FirstOrDefaultAsync(u => u.Id == id);
             return await _dbcontext.Users.FirstOrDefaultAsync(u => u.Id == id);
-
+            //return User;
         }
 
         public async Task AddAsync(User user)

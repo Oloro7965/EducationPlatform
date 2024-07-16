@@ -19,6 +19,7 @@ builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<IClassRepository, ClassRepository>();
 builder.Services.AddScoped<IUserSignatureRepository, UserSignatureRepository>();
 builder.Services.AddScoped<ISignaturePaymentRepository, SignaturePaymentRepository>();
+builder.Services.AddScoped<IFinishedClassRepository, FinishedClassRepository>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

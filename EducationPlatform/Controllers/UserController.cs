@@ -40,7 +40,7 @@ namespace EducationPlatform.API.Controllers
             var query = new GetUserQuery(id);
 
             var user=await _mediator.Send(query);
-
+            
             return Ok(user);
             //var user=_userService.GetById(id);
             //return Ok(user);

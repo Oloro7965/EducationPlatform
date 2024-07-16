@@ -13,6 +13,7 @@ namespace EducationPlatform.Core.Domain.Entities
         public int Duration { get; private set; }
         public Guid ModuleId { get; private set; }
         public Modules module { get; private set; }
+        public List<UserFinishedClass> finishedClasses { get; private set; }
         public Class() { }
 
         public Class(string name, string description, string videoLink, int duration, Guid moduleId)

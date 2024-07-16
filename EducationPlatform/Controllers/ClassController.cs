@@ -1,4 +1,5 @@
 ﻿using EducationPlatform.application.Commands.CreateClassCommand;
+using EducationPlatform.application.Commands.CreateFinishedClassCommand;
 using EducationPlatform.application.Queries.GetAllClasses;
 using EducationPlatform.application.Queries.GetClass;
 using MediatR;
@@ -47,6 +48,16 @@ namespace EducationPlatform.API.Controllers
             var classId=await _mediator.Send(command);
 
             return CreatedAtAction(nameof(GetById), new { id = classId }, command);
+
+        }
+        [HttpPost]
+        [Route("FinishClass")]
+        public async Task<IActionResult> CreateFinishedClass([FromBody] CreateFinishedClassCommand command)
+        {
+            //var classId = _classService.Create(model);
+            var finishedClassId = await _mediator.Send(command);
+
+            return CreatedAtAction(nameof(GetById), new { id = finishedClassId }, command);
 
         }
     }

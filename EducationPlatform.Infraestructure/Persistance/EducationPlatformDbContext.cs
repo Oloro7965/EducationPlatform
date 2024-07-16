@@ -23,7 +23,9 @@ namespace EducationPlatform.Infraestructure.Persistance
         public DbSet<Signature> Signatures { get; set; }
 
         public DbSet<Course> Courses { get; set; }
-        
+
+        public DbSet<UserFinishedClass> userFinishedClasses { get; set; }
+
         //public EducationPlatformDbContext()
         //{
 

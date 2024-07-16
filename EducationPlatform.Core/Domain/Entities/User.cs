@@ -19,6 +19,7 @@ namespace EducationPlatform.Core.Domain.Entities
         public ERole Role { get; private set; }
         public bool IsActive { get; private set; }
         public List<UserSignature> usersignatures { get; private set; }
+        public List<UserFinishedClass> finishedClasses { get; private set; }
         public User() { }
         public User(string fullName,string email,string password,DateTime birthdate,string document,string phoneNumber,ERole role) {
 
@@ -37,6 +38,8 @@ namespace EducationPlatform.Core.Domain.Entities
             IsActive = true;
 
             Role = role;
+
+            usersignatures= new List<UserSignature>();
 
         }
         public void Update(string email,string phoneNumber)
