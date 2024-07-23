@@ -1,6 +1,7 @@
 ﻿using Azure.Core;
 using EducationPlatform.Core.Domain.Entities;
 using EducationPlatform.Core.Domain.Repositories;
+using EducationPlatform.Core.Domain.Results.Errors;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,9 @@ namespace EducationPlatform.Infraestructure.Persistance.Repositories
         {
             //var User = await _dbcontext
             //    .Users.Include(u => u.usersignatures).FirstOrDefaultAsync(u => u.Id == id);
+            //var user = await _dbcontext.Users.FirstOrDefaultAsync(u => u.Id == id);
             return await _dbcontext.Users.FirstOrDefaultAsync(u => u.Id == id);
+            //return await _dbcontext.Users.FirstOrDefaultAsync(u => u.Id == id);
             //return User;
         }
 

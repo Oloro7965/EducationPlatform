@@ -7,6 +7,7 @@ using EducationPlatform.application.Commands.UpdateSignatureCommand;
 using EducationPlatform.application.Commands.UpdateUserCommand;
 using EducationPlatform.application.Queries.GetAllUsers;
 using EducationPlatform.application.Queries.GetUser;
+using EducationPlatform.Core.Domain.Results.Errors;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

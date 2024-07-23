@@ -1,5 +1,7 @@
 ﻿using EducationPlatform.application.ViewModel;
 using EducationPlatform.Core.Domain.Repositories;
+using EducationPlatform.Core.Domain.Results;
+using EducationPlatform.Core.Domain.Results.Errors;
 using EducationPlatform.Infraestructure.Persistance;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -26,9 +28,12 @@ namespace EducationPlatform.application.Queries.GetUser
         {
             //var user = _dbcontext.Users.FirstOrDefault(u => u.Id == request.Id);
             var user = await _userRepository.GetByIdAsync(request.Id);
-
+            if (user == null)
+            {
+                return null;
+            }
             var UserDetailViewModel = new UserViewModel(user.FullName, user.Email, user.BirthDate, user.PhoneNumber);
-
+            
             return UserDetailViewModel;
 
         }
