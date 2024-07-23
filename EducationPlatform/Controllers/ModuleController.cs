@@ -3,6 +3,7 @@ using EducationPlatform.application.Commands.UpdateModuleCommand;
 using EducationPlatform.application.Commands.UpdateUserCommand;
 using EducationPlatform.application.Queries.GetAllModules;
 using EducationPlatform.application.Queries.GetModule;
+using EducationPlatform.Core.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -44,6 +45,11 @@ namespace EducationPlatform.API.Controllers
 
             var module = await _mediator.Send(query);
 
+            if (!module.IsSuccess)
+            {
+                return BadRequest(module.Message);
+            }
+
             return Ok(module);
 
         }
@@ -63,8 +69,11 @@ namespace EducationPlatform.API.Controllers
 
             command.Id = id;
             //_moduleService.Update(model);
-            await _mediator.Send(command);
-
+            var result=await _mediator.Send(command);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result.Message);
+            }
             return Ok(NoContent);
 
         }

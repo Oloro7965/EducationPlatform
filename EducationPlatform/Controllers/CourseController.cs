@@ -3,6 +3,7 @@ using EducationPlatform.application.Commands.CreateCourseCommand;
 using EducationPlatform.application.Commands.UpdateCourseCommand;
 using EducationPlatform.application.Queries.GetAllCourses;
 using EducationPlatform.application.Queries.GetCourse;
+using EducationPlatform.Core.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -42,7 +43,10 @@ namespace EducationPlatform.API.Controllers
             var query = new GetCourseQuery(id);
 
             var course=await _mediator.Send(query);
-
+            if (!course.IsSuccess)
+            {
+                return BadRequest(course.Message);
+            }
             return Ok(course);
 
         }
@@ -61,8 +65,11 @@ namespace EducationPlatform.API.Controllers
             //_courseService.Update(model);
             command.Id = id;
 
-            await _mediator.Send(command);
-
+            var result=await _mediator.Send(command);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result.Message);
+            }
             return Ok(NoContent);
 
         }

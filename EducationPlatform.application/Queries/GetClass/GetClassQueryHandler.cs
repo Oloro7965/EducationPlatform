@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace EducationPlatform.application.Queries.GetClass
 {
-    public class GetClassQueryHandler : IRequestHandler<GetClassQuery, ClassViewModel>
+    public class GetClassQueryHandler : IRequestHandler<GetClassQuery, ResultViewModel<ClassViewModel>>
     {
         private readonly IClassRepository _classRepository;
 
@@ -21,16 +21,19 @@ namespace EducationPlatform.application.Queries.GetClass
 
         }
 
-        public async Task<ClassViewModel> Handle(GetClassQuery request, CancellationToken cancellationToken)
+        public async Task<ResultViewModel<ClassViewModel>> Handle(GetClassQuery request, CancellationToken cancellationToken)
         {
 
             //var class1 = _dbcontext.Classes.FirstOrDefault(m => m.Id == request.Id);
 
             var @class=await _classRepository.GetByIdAsync(request.Id);
-
+            if (@class is null)
+            {
+                return ResultViewModel<ClassViewModel>.Error("Essa aula não existe");
+            }
             var ClassDetailViewModel = new ClassViewModel(@class.Name, @class.Description, @class.VideoLink, @class.Duration);
 
-            return ClassDetailViewModel;
+            return ResultViewModel<ClassViewModel>.Success(ClassDetailViewModel);
 
         }
     }

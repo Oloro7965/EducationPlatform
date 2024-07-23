@@ -1,4 +1,5 @@
-﻿using EducationPlatform.Core.Domain.Repositories;
+﻿using EducationPlatform.application.ViewModel;
+using EducationPlatform.Core.Domain.Repositories;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace EducationPlatform.application.Commands.UpdateSignatureCommand
 {
-    public class UpdateUserSignatureCommandHandler : IRequestHandler<UpdateUserSignatureCommand, Unit>
+    public class UpdateUserSignatureCommandHandler : IRequestHandler<UpdateUserSignatureCommand, ResultViewModel>
     {
         private readonly IUserSignatureRepository _userSignatureRepository;
 
@@ -17,12 +18,16 @@ namespace EducationPlatform.application.Commands.UpdateSignatureCommand
             _userSignatureRepository = userSignatureRepository;
         }
 
-        public async Task<Unit> Handle(UpdateUserSignatureCommand request, CancellationToken cancellationToken)
+        public async Task<ResultViewModel> Handle(UpdateUserSignatureCommand request, CancellationToken cancellationToken)
         {
             var userSignature=await _userSignatureRepository.GetByIdAsync(request.Id);
+            if (userSignature is null)
+            {
+                return ResultViewModel.Error("Esta Assinatura de usuário não existe");
+            }
             userSignature.UpdateStatus(request.SignatureStatus);
             _userSignatureRepository.SaveChangesAsync();
-            return Unit.Value;
+            return ResultViewModel.Success();
         }
     }
 }

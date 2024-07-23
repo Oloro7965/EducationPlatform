@@ -1,4 +1,5 @@
-﻿using EducationPlatform.Core.Domain.Repositories;
+﻿using EducationPlatform.application.ViewModel;
+using EducationPlatform.Core.Domain.Repositories;
 using EducationPlatform.Infraestructure.Persistance;
 using MediatR;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace EducationPlatform.application.Commands.UpdateUserCommand
 {
-    public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, Unit>
+    public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, ResultViewModel>
     {
 
         private readonly IUserRepository _userRepository;
@@ -21,17 +22,20 @@ namespace EducationPlatform.application.Commands.UpdateUserCommand
 
         }
 
-        public async Task<Unit> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+        public async Task<ResultViewModel> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
             //var user = _dbcontext.Users.SingleOrDefault(u => u.Id == request.Id);
             var user=await _userRepository.GetByIdAsync(request.Id);
-
+            if (user is null)
+            {
+                return ResultViewModel.Error("Usuário não existe");
+            }
             user.Update(request.Email, request.PhoneNumber);
 
             //_dbcontext.Update(user);  
             _userRepository.SaveChangesAsync();
 
-            return Unit.Value;
+            return ResultViewModel.Success();
 
         }
     }

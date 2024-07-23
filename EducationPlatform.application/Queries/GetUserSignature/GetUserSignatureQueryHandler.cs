@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace EducationPlatform.application.Queries.GetUserSignature
 {
-    public class GetUserSignatureQueryHandler : IRequestHandler<GetUserSignatureQuery, UserSignatureViewModel>
+    public class GetUserSignatureQueryHandler : IRequestHandler<GetUserSignatureQuery, ResultViewModel<UserSignatureViewModel>>
     {
         private readonly IUserSignatureRepository _userSignatureRepository;
 
@@ -19,13 +19,16 @@ namespace EducationPlatform.application.Queries.GetUserSignature
             _userSignatureRepository = userSignatureRepository;
         }
 
-        public async Task<UserSignatureViewModel> Handle(GetUserSignatureQuery request, CancellationToken cancellationToken)
+        public async Task<ResultViewModel<UserSignatureViewModel>> Handle(GetUserSignatureQuery request, CancellationToken cancellationToken)
         {
             var userSignature = await _userSignatureRepository.GetByIdAsync(request.Id);
-
+            if (userSignature is null)
+            {
+                return ResultViewModel<UserSignatureViewModel>.Error("Esta assinatura de usuário não existe");
+            }
             var UserSignatureDetailViewModel = new UserSignatureViewModel(userSignature.SignatureStatus, userSignature.StartDate, userSignature.ExpiredDate);
 
-            return UserSignatureDetailViewModel;
+            return ResultViewModel<UserSignatureViewModel>.Success(UserSignatureDetailViewModel);
         }
     }
 }

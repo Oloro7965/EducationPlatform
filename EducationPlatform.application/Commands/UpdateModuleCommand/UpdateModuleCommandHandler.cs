@@ -1,4 +1,5 @@
-﻿using EducationPlatform.Core.Domain.Repositories;
+﻿using EducationPlatform.application.ViewModel;
+using EducationPlatform.Core.Domain.Repositories;
 using EducationPlatform.Infraestructure.Persistance;
 using MediatR;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace EducationPlatform.application.Commands.UpdateModuleCommand
 {
-    public class UpdateModuleCommandHandler : IRequestHandler<UpdateModuleCommand, Unit>
+    public class UpdateModuleCommandHandler : IRequestHandler<UpdateModuleCommand, ResultViewModel>
 
     {
 
@@ -23,17 +24,20 @@ namespace EducationPlatform.application.Commands.UpdateModuleCommand
 
         }
 
-        public async Task<Unit> Handle(UpdateModuleCommand request, CancellationToken cancellationToken)
+        public async Task<ResultViewModel> Handle(UpdateModuleCommand request, CancellationToken cancellationToken)
         {
 
             //var Module = _dbcontext.Modules.FirstOrDefault(m => m.Id == request.Id);
             var Module = await _moduleRepository.GetByIdAsync(request.Id);
-
+            if (Module is null)
+            {
+                return ResultViewModel.Error("Este Módulo não existe");
+            }
             Module.Update(request.Description);
 
             await _moduleRepository.SaveChangesAsync();
 
-            return Unit.Value;
+            return ResultViewModel.Success();
 
         }
 

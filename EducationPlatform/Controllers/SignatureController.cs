@@ -1,6 +1,7 @@
 ﻿using EducationPlatform.application.Commands.CreateSignatureCommand;
 using EducationPlatform.application.Queries.GetAllSignatures;
 using EducationPlatform.application.Queries.GetSignature;
+using EducationPlatform.Core.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -39,6 +40,11 @@ namespace EducationPlatform.API.Controllers
             var Query=new GetSignatureQuery(id);
 
             var signature = await _mediator.Send(Query);
+
+            if (!signature.IsSuccess)
+            {
+                return BadRequest(signature.Message);
+            }
 
             return Ok(signature);
             //var signature = _signatureService.GetById(id);

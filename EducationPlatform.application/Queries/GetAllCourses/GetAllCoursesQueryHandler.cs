@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace EducationPlatform.application.Queries.GetAllCourses
 {
-    public class GetAllCoursesQueryHandler : IRequestHandler<GetAllCoursesQuery, List<CourseViewModel>>
+    public class GetAllCoursesQueryHandler : IRequestHandler<GetAllCoursesQuery, ResultViewModel<List<CourseViewModel>>>
     {
         private readonly ICourseRepository _courseRepository;
 
@@ -22,7 +22,7 @@ namespace EducationPlatform.application.Queries.GetAllCourses
 
         }
 
-        public async Task<List<CourseViewModel>> Handle(GetAllCoursesQuery request, CancellationToken cancellationToken)
+        public async Task<ResultViewModel<List<CourseViewModel>>> Handle(GetAllCoursesQuery request, CancellationToken cancellationToken)
         {
 
             //var courses = _dbcontext.Courses;
@@ -32,7 +32,7 @@ namespace EducationPlatform.application.Queries.GetAllCourses
                 b.Description, b.Cover))
                 .ToList();
 
-            return CoursesViewModel;
+            return ResultViewModel<List<CourseViewModel>>.Success(CoursesViewModel);
 
         }
     }

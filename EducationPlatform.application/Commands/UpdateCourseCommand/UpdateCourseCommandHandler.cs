@@ -1,4 +1,5 @@
-﻿using EducationPlatform.Core.Domain.Repositories;
+﻿using EducationPlatform.application.ViewModel;
+using EducationPlatform.Core.Domain.Repositories;
 using EducationPlatform.Infraestructure.Persistance;
 using MediatR;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace EducationPlatform.application.Commands.UpdateCourseCommand
 {
-    public class UpdateCourseCommandHandler : IRequestHandler<UpdateCourseCommand, Unit>
+    public class UpdateCourseCommandHandler : IRequestHandler<UpdateCourseCommand, ResultViewModel>
     {
         private readonly ICourseRepository _courseRepository;
 
@@ -19,16 +20,19 @@ namespace EducationPlatform.application.Commands.UpdateCourseCommand
             _courseRepository = courseRepository;
         }
 
-        public async Task<Unit> Handle(UpdateCourseCommand request, CancellationToken cancellationToken)
+        public async Task<ResultViewModel> Handle(UpdateCourseCommand request, CancellationToken cancellationToken)
         {
             //var course = _dbcontext.Courses.FirstOrDefault(m => m.Id == request.Id);
             var course = await _courseRepository.GetByIdAsync(request.Id);
-
+            if (course is null)
+            {
+                return ResultViewModel.Error("Este curso não existe ");
+            }
             course.Update(request.Description);
 
             _courseRepository.SaveChangesAsync();
 
-            return Unit.Value;
+            return ResultViewModel.Success();
         }
     }
 }

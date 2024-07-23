@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace EducationPlatform.application.Queries.GetAllUserSignatures
 {
-    public class GetAllUserSignaturesQueryHandler : IRequestHandler<GetAllUserSignaturesQuery, List<UserSignatureViewModel>>
+    public class GetAllUserSignaturesQueryHandler : IRequestHandler<GetAllUserSignaturesQuery, ResultViewModel<List<UserSignatureViewModel>>>
     {
         private readonly IUserSignatureRepository _userSignatureRepository;
 
@@ -19,7 +19,7 @@ namespace EducationPlatform.application.Queries.GetAllUserSignatures
             _userSignatureRepository = userSignatureRepository;
         }
 
-        public async Task<List<UserSignatureViewModel>> Handle(GetAllUserSignaturesQuery request, CancellationToken cancellationToken)
+        public async Task<ResultViewModel<List<UserSignatureViewModel>>> Handle(GetAllUserSignaturesQuery request, CancellationToken cancellationToken)
         {
             var userSignatures = await _userSignatureRepository.GetAllAsync();
             
@@ -27,7 +27,7 @@ namespace EducationPlatform.application.Queries.GetAllUserSignatures
                  , b.StartDate, b.ExpiredDate))
                  .ToList();
 
-            return userSignatureViewModel;
+            return ResultViewModel<List<UserSignatureViewModel>>.Success(userSignatureViewModel);
         }
     }
 }

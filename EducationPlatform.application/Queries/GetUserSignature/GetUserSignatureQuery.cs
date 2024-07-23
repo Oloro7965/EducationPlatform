@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EducationPlatform.application.Queries.GetUserSignature
 {
-    public class GetUserSignatureQuery:IRequest<UserSignatureViewModel>
+    public class GetUserSignatureQuery:IRequest<ResultViewModel<UserSignatureViewModel>>
     {
         public GetUserSignatureQuery(Guid id)
         {

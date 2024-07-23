@@ -2,6 +2,7 @@
 using EducationPlatform.application.Commands.CreateFinishedClassCommand;
 using EducationPlatform.application.Queries.GetAllClasses;
 using EducationPlatform.application.Queries.GetClass;
+using EducationPlatform.Core.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 namespace EducationPlatform.API.Controllers
@@ -36,7 +37,10 @@ namespace EducationPlatform.API.Controllers
             var query = new GetClassQuery(id);
 
             var class1= await _mediator.Send(query);
-
+            if (!class1.IsSuccess)
+            {
+                return BadRequest(class1.Message);
+            }
             //var class1 = _classService.GetById(id);
             return Ok(class1);
 

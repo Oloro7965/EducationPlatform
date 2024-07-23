@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EducationPlatform.application.Queries.GetModule
 {
-    public class GetModuleQuery:IRequest<ModuleViewModel>
+    public class GetModuleQuery:IRequest<ResultViewModel<ModuleViewModel>>
     {
         public GetModuleQuery(Guid id)
         {

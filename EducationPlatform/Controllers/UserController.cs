@@ -7,6 +7,7 @@ using EducationPlatform.application.Commands.UpdateSignatureCommand;
 using EducationPlatform.application.Commands.UpdateUserCommand;
 using EducationPlatform.application.Queries.GetAllUsers;
 using EducationPlatform.application.Queries.GetUser;
+using EducationPlatform.Core.Domain.Entities;
 using EducationPlatform.Core.Domain.Results.Errors;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -41,7 +42,10 @@ namespace EducationPlatform.API.Controllers
             var query = new GetUserQuery(id);
 
             var user=await _mediator.Send(query);
-            
+            if (!user.IsSuccess)
+            {
+                return BadRequest(user.Message);
+            }
             return Ok(user);
             //var user=_userService.GetById(id);
             //return Ok(user);
@@ -80,8 +84,11 @@ namespace EducationPlatform.API.Controllers
 
             command.Id= id;
 
-            await _mediator.Send(command);
-
+            var result =await _mediator.Send(command);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result.Message);
+            }
             return NoContent();
             
         }
@@ -91,8 +98,11 @@ namespace EducationPlatform.API.Controllers
 
             command.Id = id;
 
-            await _mediator.Send(command);
-
+            var result=await _mediator.Send(command);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result.Message);
+            }
             return NoContent();
 
         }
@@ -104,8 +114,11 @@ namespace EducationPlatform.API.Controllers
 
             var command = new DeleteUserCommand(id);
 
-            await _mediator.Send(command);
-
+            var result=await _mediator.Send(command);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result.Message);
+            }
             //_userService.Delete(id);
             return Ok();
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EducationPlatform.application.Queries.GetAllCourses
 {
-    public class GetAllCoursesQuery:IRequest<List<CourseViewModel>>
+    public class GetAllCoursesQuery:IRequest<ResultViewModel<List<CourseViewModel>>>
     {
     }
 }

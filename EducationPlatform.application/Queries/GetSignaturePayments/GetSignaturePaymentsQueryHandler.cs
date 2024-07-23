@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace EducationPlatform.application.Queries.GetSignaturePayments
 {
-    public class GetSignaturePaymentsQueryHandler : IRequestHandler<GetSignaturePaymentsQuery, List<SignaturePaymentViewModel>>
+    public class GetSignaturePaymentsQueryHandler : IRequestHandler<GetSignaturePaymentsQuery, ResultViewModel<List<SignaturePaymentViewModel>>>
     {
         private readonly ISignaturePaymentRepository _signaturePaymentRepository;
 
@@ -21,14 +21,14 @@ namespace EducationPlatform.application.Queries.GetSignaturePayments
             _signaturePaymentRepository = signaturePaymentRepository;
         }
 
-        public async Task<List<SignaturePaymentViewModel>> Handle(GetSignaturePaymentsQuery request, CancellationToken cancellationToken)
+        public async Task<ResultViewModel<List<SignaturePaymentViewModel>>> Handle(GetSignaturePaymentsQuery request, CancellationToken cancellationToken)
         {
             var SignaturePayments = await _signaturePaymentRepository.GetAllAsync();
 
             var SignaturesPaymentyViewModel = SignaturePayments.Select(b => new SignaturePaymentViewModel(b.PaymentStatus,b.Amount,b.PaymentLink,b.DueDate))
             .ToList();
 
-            return SignaturesPaymentyViewModel;
+            return ResultViewModel<List<SignaturePaymentViewModel>>.Success(SignaturesPaymentyViewModel);
         }
     }
 }

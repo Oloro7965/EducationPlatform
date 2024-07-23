@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace EducationPlatform.application.Queries.GetSignaturePayment
 {
-    public class GetSignaturePaymentQueryHandler : IRequestHandler<GetSignaturePaymentQuery, SignaturePaymentViewModel>
+    public class GetSignaturePaymentQueryHandler : IRequestHandler<GetSignaturePaymentQuery, ResultViewModel<SignaturePaymentViewModel>>
     {
         private readonly ISignaturePaymentRepository _signaturePaymentRepository;
 
@@ -19,13 +19,17 @@ namespace EducationPlatform.application.Queries.GetSignaturePayment
             _signaturePaymentRepository = signaturePaymentRepository;
         }
 
-        public async Task<SignaturePaymentViewModel> Handle(GetSignaturePaymentQuery request, CancellationToken cancellationToken)
+        public async Task<ResultViewModel<SignaturePaymentViewModel>> Handle(GetSignaturePaymentQuery request, CancellationToken cancellationToken)
         {
             var signaturePayment = await _signaturePaymentRepository.GetByIdAsync(request.Id);
 
+            if(signaturePayment is null)
+            {
+                return ResultViewModel<SignaturePaymentViewModel>.Error("Este Pagamento não existe");
+            }
             var SignaturePaymentDetailViewModel = new SignaturePaymentViewModel(signaturePayment.PaymentStatus, signaturePayment.Amount, signaturePayment.PaymentLink,signaturePayment.DueDate);
 
-            return SignaturePaymentDetailViewModel;
+            return ResultViewModel<SignaturePaymentViewModel>.Success(SignaturePaymentDetailViewModel);
         }
     }
 }

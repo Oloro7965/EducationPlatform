@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace EducationPlatform.application.Queries.GetAllModules
 {
-    public class GetAllModulesQueryHandler : IRequestHandler<GetAllModulesQuery, List<ModuleViewModel>>
+    public class GetAllModulesQueryHandler : IRequestHandler<GetAllModulesQuery, ResultViewModel<List<ModuleViewModel>>>
     {
         private readonly IModuleRepository _moduleRepository;
 
@@ -22,7 +22,7 @@ namespace EducationPlatform.application.Queries.GetAllModules
 
         }
 
-        public async Task<List<ModuleViewModel>> Handle(GetAllModulesQuery request, CancellationToken cancellationToken)
+        public async Task<ResultViewModel<List<ModuleViewModel>>> Handle(GetAllModulesQuery request, CancellationToken cancellationToken)
         {
 
             var modules = await _moduleRepository.GetAllAsync();
@@ -31,7 +31,7 @@ namespace EducationPlatform.application.Queries.GetAllModules
                 , b.Description, b.CreatedDate))
                 .ToList();
 
-            return modulesViewModel;
+            return ResultViewModel<List<ModuleViewModel>>.Success(modulesViewModel);
 
         }
     }

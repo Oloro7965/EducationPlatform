@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace EducationPlatform.application.Queries.GetAllUsers
 {
-    public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, List<UserViewModel>>
+    public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, ResultViewModel<List<UserViewModel>>>
     {
         private readonly IUserRepository _userRepository;
 
@@ -22,7 +22,7 @@ namespace EducationPlatform.application.Queries.GetAllUsers
 
         }
 
-        public async Task<List<UserViewModel>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
+        public async Task<ResultViewModel<List<UserViewModel>>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
         {
             var users = await _userRepository.GetAllAsync();
             //var users = _dbcontext.Users.Where(u => u.IsActive.Equals(true));
@@ -30,7 +30,7 @@ namespace EducationPlatform.application.Queries.GetAllUsers
                  ,b.Email,b.BirthDate,b.PhoneNumber))
                  .ToList();
 
-            return usersViewModel;
+            return ResultViewModel<List<UserViewModel>>.Success(usersViewModel);
 
         }
     }

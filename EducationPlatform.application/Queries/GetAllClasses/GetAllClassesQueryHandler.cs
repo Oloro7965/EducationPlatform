@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace EducationPlatform.application.Queries.GetAllClasses
 {
-    public class GetAllClassesQueryHandler : IRequestHandler<GetAllClassesQuery, List<ClassViewModel>>
+    public class GetAllClassesQueryHandler : IRequestHandler<GetAllClassesQuery, ResultViewModel<List<ClassViewModel>>>
     {
         private readonly IClassRepository _classRepository;
 
@@ -22,7 +22,7 @@ namespace EducationPlatform.application.Queries.GetAllClasses
 
         }
 
-        public async Task<List<ClassViewModel>> Handle(GetAllClassesQuery request, CancellationToken cancellationToken)
+        public async Task<ResultViewModel<List<ClassViewModel>>> Handle(GetAllClassesQuery request, CancellationToken cancellationToken)
         {
             //var classes = _dbcontext.Classes;
             var classes = await _classRepository.GetAllAsync();
@@ -31,7 +31,7 @@ namespace EducationPlatform.application.Queries.GetAllClasses
                 b.Description, b.VideoLink, b.Duration))
                 .ToList();
 
-            return ClassesViewModel;
+            return ResultViewModel<List<ClassViewModel>>.Success(ClassesViewModel);
 
         }
     }

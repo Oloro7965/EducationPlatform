@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace EducationPlatform.application.Queries.GetAllUsers
 {
-    public class GetAllUsersQuery:IRequest<List<UserViewModel>>
+    public class GetAllUsersQuery:IRequest<ResultViewModel<List<UserViewModel>>>
     {
         public GetAllUsersQuery(string query)
         {

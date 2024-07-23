@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EducationPlatform.application.Queries.GetUser
 {
-    public class GetUserQuery:IRequest<UserViewModel>
+    public class GetUserQuery: IRequest<ResultViewModel<UserViewModel>>
     {
         public GetUserQuery(Guid id)
         {

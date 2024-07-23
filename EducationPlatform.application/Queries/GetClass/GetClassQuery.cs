@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EducationPlatform.application.Queries.GetClass
 {
-    public class GetClassQuery:IRequest<ClassViewModel>
+    public class GetClassQuery:IRequest<ResultViewModel<ClassViewModel>>
     {
         public GetClassQuery(Guid id)
         {

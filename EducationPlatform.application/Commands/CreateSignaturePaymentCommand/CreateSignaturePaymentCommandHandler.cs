@@ -21,7 +21,8 @@ namespace EducationPlatform.application.Commands.CreatePaymentSignatureCommand
 
         public async Task<Guid> Handle(CreateSignaturePaymentCommand request, CancellationToken cancellationToken)
         {
-            var payment = new SignaturePayment(request.Message,request.Amount,request.UserSignatureId,request.PaymentLink,request.IdExternalPayment,request.DueDate);
+            var payment = new SignaturePayment(request.Message,request.Amount,request.UserSignatureId
+                ,request.PaymentLink,request.IdExternalPayment,request.DueDate);
 
             await _signaturePaymentRepository.AddAsync(payment);
 

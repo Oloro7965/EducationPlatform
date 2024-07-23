@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace EducationPlatform.application.Queries.GetUser
 {
-    public class GetUserQueryHandler : IRequestHandler<GetUserQuery,UserViewModel>
+    public class GetUserQueryHandler : IRequestHandler<GetUserQuery,ResultViewModel<UserViewModel>>
     {
         private readonly IUserRepository _userRepository;
 
@@ -24,17 +24,17 @@ namespace EducationPlatform.application.Queries.GetUser
 
         }
 
-        public async Task<UserViewModel> Handle(GetUserQuery request, CancellationToken cancellationToken)
+        public async Task<ResultViewModel<UserViewModel>> Handle(GetUserQuery request, CancellationToken cancellationToken)
         {
             //var user = _dbcontext.Users.FirstOrDefault(u => u.Id == request.Id);
             var user = await _userRepository.GetByIdAsync(request.Id);
-            if (user == null)
+            if (user is null)
             {
-                return null;
+                return ResultViewModel<UserViewModel>.Error("Este Usuário não existe");
             }
             var UserDetailViewModel = new UserViewModel(user.FullName, user.Email, user.BirthDate, user.PhoneNumber);
-            
-            return UserDetailViewModel;
+            //var UserDetailViewModel = UserViewModel.FromEntity(user);
+            return ResultViewModel<UserViewModel>.Success(UserDetailViewModel);
 
         }
     }

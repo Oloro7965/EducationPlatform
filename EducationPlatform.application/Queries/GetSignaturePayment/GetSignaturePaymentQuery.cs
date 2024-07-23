@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EducationPlatform.application.Queries.GetSignaturePayment
 {
-    public class GetSignaturePaymentQuery:IRequest<SignaturePaymentViewModel>
+    public class GetSignaturePaymentQuery:IRequest<ResultViewModel<SignaturePaymentViewModel>>
     {
         public GetSignaturePaymentQuery(Guid id)
         {

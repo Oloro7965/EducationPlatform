@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace EducationPlatform.application.Queries.GetModule
 {
-    public class GetModuleQueryHandler : IRequestHandler<GetModuleQuery, ModuleViewModel>
+    public class GetModuleQueryHandler : IRequestHandler<GetModuleQuery, ResultViewModel<ModuleViewModel>>
     {
         private readonly IModuleRepository _moduleRepository;
 
@@ -22,14 +22,17 @@ namespace EducationPlatform.application.Queries.GetModule
 
         }
 
-        public async Task<ModuleViewModel> Handle(GetModuleQuery request, CancellationToken cancellationToken)
+        public async Task<ResultViewModel<ModuleViewModel>> Handle(GetModuleQuery request, CancellationToken cancellationToken)
         {
             var module = await _moduleRepository.GetByIdAsync(request.Id);
             
-
+            if (module is null)
+            {
+                return ResultViewModel<ModuleViewModel>.Error("Este módulo não existe");
+            }
             var ModuleDetailViewModel = new ModuleViewModel(module.Name, module.Description, module.CreatedDate);
 
-            return ModuleDetailViewModel;
+            return ResultViewModel<ModuleViewModel>.Success(ModuleDetailViewModel);
 
         }
     }

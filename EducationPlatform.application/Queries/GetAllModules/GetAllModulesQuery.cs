@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EducationPlatform.application.Queries.GetAllModules
 {
-    public class GetAllModulesQuery:IRequest<List<ModuleViewModel>>
+    public class GetAllModulesQuery:IRequest<ResultViewModel<List<ModuleViewModel>>>
     {
     }
 }
