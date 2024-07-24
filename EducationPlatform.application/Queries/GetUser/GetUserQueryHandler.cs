@@ -1,7 +1,5 @@
 ﻿using EducationPlatform.application.ViewModel;
 using EducationPlatform.Core.Domain.Repositories;
-using EducationPlatform.Core.Domain.Results;
-using EducationPlatform.Core.Domain.Results.Errors;
 using EducationPlatform.Infraestructure.Persistance;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

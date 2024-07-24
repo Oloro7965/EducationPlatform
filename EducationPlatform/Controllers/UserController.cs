@@ -8,7 +8,6 @@ using EducationPlatform.application.Commands.UpdateUserCommand;
 using EducationPlatform.application.Queries.GetAllUsers;
 using EducationPlatform.application.Queries.GetUser;
 using EducationPlatform.Core.Domain.Entities;
-using EducationPlatform.Core.Domain.Results.Errors;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -75,9 +74,13 @@ namespace EducationPlatform.API.Controllers
         [Route("UserSignatures/PaymentSignature")]
         public async Task<IActionResult> CreatePaymentSignature([FromBody] CreateSignaturePaymentCommand command)
         {
-            var SignaturePaymentId=await _mediator
+            var result=await _mediator
                 .Send(command);
-            return Ok(SignaturePaymentId);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result.Message);
+            }
+            return Ok(result);
         }
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(Guid id, [FromBody] UpdateUserCommand command) {

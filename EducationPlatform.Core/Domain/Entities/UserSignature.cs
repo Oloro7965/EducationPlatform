@@ -9,14 +9,14 @@ namespace EducationPlatform.Core.Domain.Entities
 {
     public class UserSignature : BaseEntity
     {
-        public UserSignature(Guid userId, Guid signatureId, ESignatureStatus signatureStatus, DateTime expiredDate)
+        public UserSignature(Guid userId, Guid signatureId, DateTime expiredDate)
         {
 
             UserId = userId;
 
             SignatureId = signatureId;
 
-            SignatureStatus = signatureStatus;
+            SignatureStatus = ESignatureStatus.Pending;
 
             StartDate = DateTime.Now;
 

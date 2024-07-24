@@ -22,7 +22,7 @@ namespace EducationPlatform.application.Commands.CreateUserSignatureCommand
         public async Task<Guid> Handle(CreateUserSignatureCommand request, CancellationToken cancellationToken)
         {
 
-            var userSignature = new UserSignature(request.UserId,request.SignatureId,request.SignatureStatus,request.ExpiredDate);
+            var userSignature = new UserSignature(request.UserId,request.SignatureId,request.ExpiredDate);
 
             await _userSignatureRepository.AddAsync(userSignature);
 

@@ -1,7 +1,6 @@
 ﻿using Azure.Core;
 using EducationPlatform.Core.Domain.Entities;
 using EducationPlatform.Core.Domain.Repositories;
-using EducationPlatform.Core.Domain.Results.Errors;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using EducationPlatform.application.ViewModel;
+using MediatR;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace EducationPlatform.application.Commands.CreatePaymentSignatureCommand
 {
-    public class CreateSignaturePaymentCommand : IRequest<Guid>
+    public class CreateSignaturePaymentCommand : IRequest<ResultViewModel<Guid>>
     {
         public string Message { get; set; }
         public Decimal Amount { get; set; }
